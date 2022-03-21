@@ -1,0 +1,8 @@
+prefix=/home/nvidia/remote_ws/install
+
+Name: joy_node
+Description: Description of joy_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

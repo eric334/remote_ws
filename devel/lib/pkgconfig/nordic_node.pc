@@ -1,0 +1,8 @@
+prefix=/home/nvidia/remote_ws/devel
+
+Name: nordic_node
+Description: Description of nordic_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -7,8 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/nvidia/remote_ws/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH='/home/nvidia/robot_ws/devel/lib:/opt/ros/kinetic/lib:/opt/ros/kinetic/lib/aarch64-linux-gnu:/usr/local/cuda-9.0/lib64'
 export PWD='/home/nvidia/remote_ws/build'
-export ROSLISP_PACKAGE_DIRECTORIES="/home/nvidia/remote_ws/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/nvidia/remote_ws/src:$ROS_PACKAGE_PATH"

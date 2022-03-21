@@ -27,7 +27,7 @@ class Node:
 
         rospy.loginfo("Nordic_send - opening serial : " + dev)
         # TODO COPY SPECIFICS
-        #self.serial = Serial(dev, timeout=1, baudrate=baud)
+        self.serial = Serial(dev, timeout=1, baudrate=baud)
 
         self.sub_camera = rospy.Subscriber(camera_topic, CompressedImage, self.callback_camera)
         rospy.loginfo("Nordic_send - subscribed to topic : " + camera_topic)
@@ -48,8 +48,8 @@ class Node:
         self.write_serial(compressedImage)
 
     def write_serial(self, data):
-        #self.serial.write(data)
-        return
+        self.serial.write(data)
+        #return
 
     def set_compressedimage_quality(self, topic, quality):
             client = dynamic_reconfigure.client.Client(topic, timeout = 3)

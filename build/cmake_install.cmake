@@ -126,6 +126,8 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/nvidia/remote_ws/build/gtest/cmake_install.cmake")
+  include("/home/nvidia/remote_ws/build/nordic_node/cmake_install.cmake")
+  include("/home/nvidia/remote_ws/build/joy_node/cmake_install.cmake")
 
 endif()
 
