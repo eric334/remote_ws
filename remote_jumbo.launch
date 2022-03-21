@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Main launch file -->
+
+  <!-- Nordic controller -->
+  <include file="src/nordic_node/launch/nordic.launch">
+    <arg name="dev" value="/dev/ttyACM0"/>
+    <arg name="baud" value="115200"/>
+    <arg name="camera_topic" value="/usb_cam/image_raw/compressed"/>
+    <arg name="hector_topic" value="/map_image/tile/compressed"/>
+    <arg name="jpeg_quality_level" value="40"/>
+  </include>
+
+  <!-- Roboclaw motor controller -->
+  <include file="src/roboclaw_node/launch/roboclaw.launch">
+    <arg name="dev" value="/dev/ttyACM0"/>
+    <arg name="baud" value="115200"/>
+    <arg name="max_speed" value="2.0"/>
+    <arg name="subscribed_topic" value="/nordic_node/recv_data_roboclaw"/>
+  </include>
+
+  <!-- Maestro motor controller -->
+  <include file="src/maestro_node/launch/maestro.launch">
+    <!-- does not require dev spec as using driver?-->
+    <arg name="subscribed_topic" value="/nordic_node/recv_data_maestro"/>
+  </include>
+
+  <!-- USB cam controller -->
+  <include file="src/usb_cam/launch/usb_cam.launch">
+    <arg name="dev" value="/dev/video1" />
+    <arg name="width" value="320"/>
+    <arg name="height" value="240"/>
+    <arg name="fps" value="6"/>
+  </include>
+
+  <!-- Lidar controller -->
+  <include file="src/rplidar_ros/launch/rplidar.launch">
+    <!-- may be USB0 or USB1 depending on maestro?-->
+    <arg name="dev" default="/dev/ttyUSB0"/>
+    <arg name="baud" default="115200"/>
+  </include>
+  
+  <!-- Hector slam -->
+  <include file="src/hector_slam/hector_slam_launch/launch/hector_slam_image.launch"/>
+
+</launch>

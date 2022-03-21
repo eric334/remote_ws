@@ -1,0 +1,2 @@
+
+<node name="listener_node" pkg="hello_world" type="example.py" output="screen"></node>

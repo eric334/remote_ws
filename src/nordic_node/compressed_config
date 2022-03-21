@@ -1,0 +1,21 @@
+!!python/object/new:dynamic_reconfigure.encoding.Config
+dictitems:
+  format: jpeg
+  groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+    dictitems:
+      format: jpeg
+      groups: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      id: 0
+      jpeg_quality: 30
+      name: Default
+      parameters: !!python/object/new:dynamic_reconfigure.encoding.Config
+        state: []
+      parent: 0
+      png_level: 9
+      state: true
+      type: ''
+    state: []
+  jpeg_quality: 30
+  png_level: 9
+state: []
