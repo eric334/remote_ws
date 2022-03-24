@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from geometry_msgs.msg import Twist
-from std_msgs.msg import Empty
-from sensor_msgs.msg import Joy
+from std_msgs.msg import CompressedImage
 from serial import Serial, serialutil
 import StringIO
 import sys
@@ -10,8 +8,8 @@ import sys
 # recieve data messages from nordic, get message type and publish
 class Node:
     def __init__(self):
-        maestro_topic = rospy.get_param("~camera_topic")
-        roboclaw_topic = rospy.get_param("~hector_topic")
+        camera_topic = rospy.get_param("~camera_topic")
+        hector_topic = rospy.get_param("~hector_topic")
 
         dev = rospy.get_param("~dev", "/dev/ttyACM0")
         baud = int(rospy.get_param("~baud", "115200"))
@@ -20,10 +18,10 @@ class Node:
         # TODO COPY SPECIFICS ?
         self.serial = Serial(dev, timeout=1, baudrate=baud)
 
-        self.pub_maestro = rospy.Publisher(maestro_topic, Empty)
-        rospy.loginfo("Nordic_recv - published topic : " + maestro_topic)
-        self.pub_roboclaw = rospy.Publisher(roboclaw_topic, Twist)
-        rospy.loginfo("Nordic_recv - published topic : " + roboclaw_topic)
+        self.pub_camera = rospy.Publisher(camera_topic, CompressedImage)
+        rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
+        self.pub_hector = rospy.Publisher(hector_topic, CompressedImage)
+        rospy.loginfo("Nordic_recv - published topic : " + hector_topic)
 
     def run(self):
         rate = rospy.Rate(100)
@@ -34,11 +32,16 @@ class Node:
 
             message_type = str(data._type)
 
-            if message_type == "std_msgs/Empty":
-                self.pub_maestro.publish(data)
+            if message_type == "sensor_msgs/CompressedImage":
+                
+                if data.header.frame_id = "cam":
+                    self.pub_camera.publish(data)
 
-            elif message_type == "geometry_msgs/Twist":
-                self.pub_roboclaw.publish(data)
+                elif data.header.frame_id = "hec":
+                    self.pub_hector.publish(data)
+
+                else:
+                    rospy.logdebug("Error: unrecognized frame id found: "+ data.header.frame_id)
             else:
                 rospy.logdebug("Error: unrecognized message type found: "+message_type)
             
