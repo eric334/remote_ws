@@ -7,10 +7,10 @@
   <include file="src/nordic_node/launch/nordic.launch">
     <arg name="dev" value="/dev/ttyACM0"/>
     <arg name="baud" value="115200"/>
-    <arg name="camera_topic" value="camera_image"/>
-    <arg name="hector_topic" value="hector_image"/>
-    <arg name="maestro_topic" value="recv_data_maestro"/>
-    <arg name="roboclaw_topic" value="recv_data_roboclaw"/>
+    <arg name="twist_topic" value="joy_twist"/>
+    <arg name="empty_topic" value="joy_empty"/>
+    <arg name="camera_topic" value="recv_image_camera"/>
+    <arg name="hector_topic" value="recv_image_hector"/>
     <arg name="jpeg_quality_level" value="40"/>
   </include>
 
@@ -20,5 +20,14 @@
     <arg name="update_rate" value="500"/>
     <arg name="a_down_minimum_delta" value="2000"/>
   </include>
+
+  <!-- image views for incoming images -->
+
+  <node name="image_view" pkg="image_view" type="image_view" output="screen">
+    <remap from="image" to="nordic_node/recv_image_camera" />
+  </node>
+  <node name="image_view" pkg="image_view" type="image_view" output="screen">
+    <remap from="image" to="nordic_node/recv_image_hector" />
+  </node>
 
 </launch>
