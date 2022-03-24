@@ -10,4 +10,14 @@
         <param name="~update_rate" value="$(arg update_rate)"/>
         <param name="~a_down_minimum_delta" value="$(arg a_down_minimum_delta)"/>
     </node>
+
+
+    <arg name="dev" default="/dev/input/js0" />
+
+    <!-- Launch joy node -->
+    <node pkg="joy" type="joy_node" name="joy">
+        <param name="dev" value="$(arg dev)" />
+        <param name="deadzone" value="0.2" />
+        <param name="coalesce_interval" value="0.15"/>
+    </node>
 </launch>
