@@ -1,2 +1,2 @@
-joy_node:nordic_node
--DCATKIN_DEVEL_PREFIX=/home/nvidia/remote_ws/devel -DCMAKE_INSTALL_PREFIX=/home/nvidia/remote_ws/install -G Unix Makefiles
+command_node:nordic_node
+-DCATKIN_DEVEL_PREFIX=/home/e/remote_ws/devel -DCMAKE_INSTALL_PREFIX=/home/e/remote_ws/install -G Unix Makefiles

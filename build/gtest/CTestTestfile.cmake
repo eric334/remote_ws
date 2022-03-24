@@ -1,7 +1,7 @@
 # CMake generated Testfile for 
-# Source directory: /usr/src/gmock
-# Build directory: /home/nvidia/remote_ws/build/gtest
+# Source directory: /usr/src/googletest
+# Build directory: /home/e/remote_ws/build/gtest
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-subdirs(gtest)
+subdirs("googlemock")

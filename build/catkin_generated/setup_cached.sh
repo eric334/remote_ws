@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/nvidia/remote_ws/build'
+export PWD='/home/e/remote_ws/build'

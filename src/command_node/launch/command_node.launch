@@ -1,8 +1,8 @@
 <launch>
     <arg name="twist_topic" default="joy_twist"/>
     <arg name="empty_topic" default="joy_empty"/>
-    <arg name="update_rate" default="500"/>
-    <arg name="a_down_minimum_delta" default="2000"/>
+    <arg name="update_rate" default="2"/> <!-- in hz -->
+    <arg name="a_down_minimum_delta" default="2"/> <!-- in seconds -->
 
     <node pkg="command_node" type="command_node.py" name="command_node" output="screen">
         <param name="~twist_topic" value="$(arg twist_topic)"/>

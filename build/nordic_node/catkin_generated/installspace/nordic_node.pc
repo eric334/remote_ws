@@ -1,4 +1,4 @@
-prefix=/home/nvidia/remote_ws/install
+prefix=/home/e/remote_ws/install
 
 Name: nordic_node
 Description: Description of nordic_node

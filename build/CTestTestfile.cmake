@@ -1,9 +1,9 @@
 # CMake generated Testfile for 
-# Source directory: /home/nvidia/remote_ws/src
-# Build directory: /home/nvidia/remote_ws/build
+# Source directory: /home/e/remote_ws/src
+# Build directory: /home/e/remote_ws/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-subdirs(gtest)
-subdirs(nordic_node)
-subdirs(joy_node)
+subdirs("gtest")
+subdirs("command_node")
+subdirs("nordic_node")

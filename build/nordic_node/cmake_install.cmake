@@ -1,8 +1,8 @@
-# Install script for directory: /home/nvidia/remote_ws/src/nordic_node
+# Install script for directory: /home/e/remote_ws/src/nordic_node
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/nvidia/remote_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/e/remote_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -32,18 +32,23 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/nvidia/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_node.pc")
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/e/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_node.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/nordic_node/cmake" TYPE FILE FILES
-    "/home/nvidia/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_nodeConfig.cmake"
-    "/home/nvidia/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_nodeConfig-version.cmake"
+    "/home/e/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_nodeConfig.cmake"
+    "/home/e/remote_ws/build/nordic_node/catkin_generated/installspace/nordic_nodeConfig-version.cmake"
     )
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/nordic_node" TYPE FILE FILES "/home/nvidia/remote_ws/src/nordic_node/package.xml")
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/nordic_node" TYPE FILE FILES "/home/e/remote_ws/src/nordic_node/package.xml")
 endif()
 

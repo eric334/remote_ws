@@ -9,6 +9,7 @@ project(command_node)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
+  roscpp
   rospy
   sensor_msgs
   std_msgs
@@ -71,7 +72,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   geometry_msgs#   sensor_msgs#   std_msgs
+#   std_msgs  # Or other packages containing msgs
 # )
 
 ################################################
@@ -106,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES command_node
-#  CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs
+#  CATKIN_DEPENDS rospy
 #  DEPENDS system_lib
 )
 
