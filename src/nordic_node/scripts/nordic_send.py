@@ -19,6 +19,7 @@ class Node:
         rospy.loginfo("Nordic_send - opening serial : " + dev)
         # TODO COPY SPECIFICS
         self.serial = Serial(dev, timeout=1, baudrate=baud)
+        # TODO may need to close open
 
         self.sub_camera = rospy.Subscriber(twist_topic, Twist, self.callback)
         rospy.loginfo("Nordic_send - subscribed to topic : " + twist_topic)

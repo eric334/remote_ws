@@ -17,6 +17,7 @@ class Node:
         rospy.loginfo("Nordic_recv - opening serial : " + dev)
         # TODO COPY SPECIFICS ?
         self.serial = Serial(dev, timeout=1, baudrate=baud)
+        # TODO may need to close open
 
         self.pub_camera = rospy.Publisher(camera_topic, CompressedImage)
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
