@@ -11,7 +11,6 @@
     <arg name="empty_topic" value="joy_empty"/>
     <arg name="camera_topic" value="recv_image_camera"/>
     <arg name="hector_topic" value="recv_image_hector"/>
-    <arg name="jpeg_quality_level" value="40"/>
   </include>
 
   <include file="src/joy_node/launch/joy_node.launch">

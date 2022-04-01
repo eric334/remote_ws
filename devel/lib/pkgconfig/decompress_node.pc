@@ -1,0 +1,8 @@
+prefix=/home/e/remote_ws/devel
+
+Name: decompress_node
+Description: Description of decompress_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

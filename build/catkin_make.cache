@@ -1,2 +1,2 @@
-command_node:nordic_node
+command_node:decompress_node:nordic_node:usb_cam
 -DCATKIN_DEVEL_PREFIX=/home/e/remote_ws/devel -DCMAKE_INSTALL_PREFIX=/home/e/remote_ws/install -G Unix Makefiles
