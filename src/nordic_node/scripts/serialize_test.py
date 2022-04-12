@@ -10,7 +10,6 @@ from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import CompressedImage
 from io import BytesIO
 from pympler.asizeof import asizeof
-import pickle
 
 class Node:
     def __init__(self):
@@ -26,6 +25,8 @@ class Node:
 
         buffer = BytesIO()
         obj.serialize(buffer)
+
+        # getbuffer for python 3, getvalue for python 2.7
 
         print(len(buffer.getbuffer()))
 
