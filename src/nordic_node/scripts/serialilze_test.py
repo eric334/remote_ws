@@ -4,6 +4,7 @@ import os
 import time
 from serial import Serial, serialutil
 import rospy
+from geometry_msgs.msg import TwistStamped
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 from sensor_msgs.msg import CompressedImage
@@ -14,26 +15,32 @@ import pickle
 class Node:
     def __init__(self):
 
-        obj = Twist()
-        obj.linear = createVector3([.3,.1,0])
-        obj.angular = createVector3([.2,0,.1])
+        obj = TwistStamped()
+        obj.twist.linear = createVector3([.3,.1,0])
+        obj.twist.angular = createVector3([.2,0,.1])
+        obj.header.frame_id = ";akldsjf;alksjfd;lkadja;lksjdf;alkjdf;klaj;dflkaj;slkfdja;lsdfkj;asd"
 
-        print (obj)
+        print(obj)
 
         print(asizeof(obj))
 
         buffer = BytesIO()
         obj.serialize(buffer)
 
-        print(bytes(buffer.getvalue(), 'utf-8'))
+        print(len(buffer.getbuffer()))
 
-        print(asizeof(buffer.getvalue()))
+        with open("my_file.txt", "wb") as binary_file:
+            
+            binary_file.write(buffer.getbuffer()[:])
 
-        first = buffer.getvalue()[:1]
+        with open("my_file1.txt", "wb") as binary_file:
 
-        print(first)
+            # Write bytes to file
+            binary_file.write(buffer.getbuffer()[:63])
 
-        print(asizeof(first))
+        with open("my_file2.txt", "wb") as binary_file:
+
+            binary_file.write(buffer.getbuffer()[63:])
 
 def createVector3(list):
     vector = Vector3()
