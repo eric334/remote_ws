@@ -6,27 +6,34 @@ from serial import Serial, serialutil
 import rospy
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
+from sensor_msgs.msg import CompressedImage
 from io import BytesIO
 from pympler.asizeof import asizeof
+import pickle
 
 class Node:
     def __init__(self):
 
-        twist = Twist()
-        twist.linear = createVector3([.3,.1,0])
-        twist.angular = createVector3([.2,0,.1])
+        obj = Twist()
+        obj.linear = createVector3([.3,.1,0])
+        obj.angular = createVector3([.2,0,.1])
 
-        print(twist)
+        print (obj)
 
-        print(asizeof(twist))
+        print(asizeof(obj))
 
         buffer = BytesIO()
+        obj.serialize(buffer)
 
-        twist.serialize(buffer)
+        print(bytes(buffer.getvalue(), 'utf-8'))
 
-        print(buffer.getvalue())
+        print(asizeof(buffer.getvalue()))
 
-        print(asizeof(buffer))
+        first = buffer.getvalue()[:1]
+
+        print(first)
+
+        print(asizeof(first))
 
 def createVector3(list):
     vector = Vector3()
