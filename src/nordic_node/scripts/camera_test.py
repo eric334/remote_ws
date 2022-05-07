@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
-from std_msgs.msg import CompressedImage
+import binascii
+from sensor_msgs.msg import CompressedImage
 from serial import Serial, serialutil
-from msg.msg import AnyMsg
-import StringIO
+from rospy.msg import AnyMsg
+from io import BytesIO
 import sys
 
 # recieve data messages from nordic, get message type and publish
@@ -23,22 +24,48 @@ class Node:
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
 
     def run(self):
-        rate = rospy.Rate(100)
+        #rate = rospy.Rate(100)
+
+        message = b''
+        last_packet = 0
+
+        ros_message = AnyMsg()
 
         while not rospy.is_shutdown():
             bytesToRead = self.serial.inWaiting()
             data = self.serial.read(bytesToRead)
 
-            message = AnyMsg()
-
-            message.deserialize(data)
-
-            print(message)
-
-            if data.header.frame_id = "cam":
-                self.pub_camera.publish(data)
+            data = data[:64]
             
-            rate.sleep()
+            if data[0:5] == b'start':
+                print(binascii.hexlify(data))
+                print(type(data))
+                print("last_packet bytes: " + str(binascii.hexlify(data[5:6])))
+                last_packet = int.from_bytes(data[5:6], 'big')
+                print ("last_packet: " + str(last_packet))
+                message = b''
+            elif data[0:3] == b'end':
+                
+                message = message[:len(message) - 64 + last_packet]
+                print("Entire message: \n " + str(binascii.hexlify(message)))
+
+                print("done message")
+                buffer = BytesIO(message)
+                ros_message.deserialize(buffer)
+                print(ros_message._connection_header['type'].split)
+                #if 'Header header' in ros_message.connection_header['message_definition']:
+                    
+
+                #print(ros_message)
+            elif data != b'':
+                #print(len(data))
+                #print(binascii.hexlify(data))
+                message += data
+
+            # if data.header.frame_id = "cam":
+            #     self.pub_camera.publish(data)
+            
+            # rate.sleep()
 
 
 if __name__ == '__main__':

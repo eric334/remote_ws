@@ -13,11 +13,11 @@ serial = Serial(dev, timeout=1, baudrate=baud)
 serial.close()
 serial.open()
 
-serial.write("t".encode())
+serial.write("the quick brown fox jumped over the lazy dog".encode())
 
-while True:
-    bytesToRead = serial.inWaiting()
-    data = serial.read(bytesToRead)
-    if (bytesToRead > 0):
-        print(bytesToRead)
-        print(data)
+# while True:
+#     bytesToRead = serial.inWaiting()
+#     data = serial.read(bytesToRead)
+#     if (bytesToRead > 0):
+#         print(bytesToRead)
+#         print(data)

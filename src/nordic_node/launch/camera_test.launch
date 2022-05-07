@@ -8,7 +8,6 @@
         <param name="~dev" value="$(arg dev)"/>
         <param name="~baud" value="$(arg baud)"/>
         <param name="~camera_topic" value="$(arg camera_topic)"/>
-        <param name="~hector_topic" value="$(arg hector_topic)"/>
     </node>
 
 </launch>

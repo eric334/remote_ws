@@ -4,22 +4,16 @@
   <!-- Main launch file -->
 
   <!-- Nordic controller -->
-  <include file="src/nordic_node/launch/nordic.launch">
+  <include file="src/nordic_node/launch/camera_test.launch">
     <arg name="dev" value="/dev/ttyACM0"/>
     <arg name="baud" value="115200"/>
-    <arg name="twist_topic" value="joy_twist"/>
-    <arg name="empty_topic" value="joy_empty"/>
     <arg name="camera_topic" value="recv_image_camera"/>
-    <arg name="hector_topic" value="recv_image_hector"/>
   </include>
 
   <!-- image views for incoming images -->
 
   <node name="image_view" pkg="image_view" type="image_view" output="screen">
-    <remap from="image" to="nordic_node/recv_image_camera" />
-  </node>
-  <node name="image_view" pkg="image_view" type="image_view" output="screen">
-    <remap from="image" to="nordic_node/recv_image_hector" />
+    <remap from="image" to="nordic_recv/recv_image_camera" />
   </node>
 
 </launch>
