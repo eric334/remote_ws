@@ -10,12 +10,16 @@
     <arg name="height" value="144"/>
     <arg name="fps" value="2"/>
   </include>
-
+  
+  <!--
   <node name="republish" type="republish" pkg="image_transport" output="screen" 
     args="compressed in:=/usb_cam/image_raw/compressed out:=/converted_image" />
+  -->
 
-    <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
-      <remap from="image" to="/converted_image" />
-    </node>
+  <!--
+  <node name="image_view" pkg="image_view" type="image_view" respawn="false" output="screen">
+    <remap from="image" to="/converted_image" />
+    <param name="~image_transport" value="compressed" />
+  </node> -->
 
 </launch>

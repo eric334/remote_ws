@@ -1,0 +1,26 @@
+<launch>
+    <arg name="dev" default="/dev/ttyACM0"/>
+    <arg name="baud" default="115200"/>
+
+    <arg name="twist_topic" default="joy_twist"/>
+    <arg name="empty_topic" default="joy_empty"/>
+
+    <arg name="camera_topic" default="recv_image_camera"/>
+    <arg name="hector_topic" default="recv_image_hector"/>
+
+    <node pkg="nordic_node" type="nordic_send.py" name="nordic_send" output="screen">
+        <param name="~dev" value="$(arg dev)"/>
+        <param name="~baud" value="$(arg baud)"/>
+        <param name="~twist_topic" value="$(arg twist_topic)"/>
+        <param name="~empty_topic" value="$(arg empty_topic)"/>
+        <param name="~jpeg_quality_level" value="$(arg jpeg_quality_level)"/>
+    </node>
+
+    <node pkg="nordic_node" type="nordic_recv.py" name="nordic_recv" output="screen">
+        <param name="~dev" value="$(arg dev)"/>
+        <param name="~baud" value="$(arg baud)"/>
+        <param name="~camera_topic" value="$(arg camera_topic)"/>
+        <param name="~hector_topic" value="$(arg hector_topic)"/>
+    </node>
+
+</launch>

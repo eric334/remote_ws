@@ -1,0 +1,13 @@
+<launch>
+    <arg name="dev" default="/dev/ttyACM0"/>
+    <arg name="baud" default="115200"/>
+
+    <arg name="camera_topic" default="recv_image_camera"/>
+
+    <node pkg="nordic_node" type="camera_test.py" name="nordic_recv" output="screen">
+        <param name="~dev" value="$(arg dev)"/>
+        <param name="~baud" value="$(arg baud)"/>
+        <param name="~camera_topic" value="$(arg camera_topic)"/>
+    </node>
+
+</launch>

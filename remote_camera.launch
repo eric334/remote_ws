@@ -13,7 +13,8 @@
   <!-- image views for incoming images -->
 
   <node name="image_view" pkg="image_view" type="image_view" output="screen">
-    <remap from="image" to="nordic_recv/recv_image_camera" />
+    <remap from="image" to="/recv_image_camera" />
+    <param name="image_transport" value="compressed"/>
   </node>
 
 </launch>
