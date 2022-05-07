@@ -13,7 +13,7 @@ quantizations of the plugin. (What we use in our robots).
 Meanwhile image_transport has no Python interface, this is the best we can do.
 
 Author: Sammy Pfeiffer <Sammy.Pfeiffer at student.uts.edu.au>
-Thanks Sammy this class is sick
+Thanks Sammy this class is sick!
 
 Modified by Eric Buckland
 """

@@ -1,0 +1,23 @@
+<launch>
+    <arg name="hector_display_width" default="200"/>
+    <arg name="camera_display_width" default="400"/>
+
+    <arg name="camera_topic" default="recv_image_camera"/>
+    <arg name="hector_topic" default="recv_image_hector"/>
+
+    <arg name="camera_window_name" default="Camera View"/>
+    <arg name="hector_window_name" default="LIDAR Local Map"/>
+
+    <node pkg="cv2_imageview_node" type="camera_view.py" name="camera_view" output="screen">
+        <param name="~display_width" value="$(arg camera_display_width)"/>
+        <param name="~window_name" value="$(arg camera_window_name)"/>
+        <param name="~topic" value="$(arg camera_topic)"/>
+    </node>
+
+    <node pkg="cv2_imageview_node" type="hector_view.py" name="hector_view" output="screen">
+        <param name="~display_width" value="$(arg hector_display_width)"/>
+        <param name="~window_name" value="$(arg hector_window_name)"/>
+        <param name="~topic" value="$(arg hector_topic)"/>
+    </node>
+
+</launch>

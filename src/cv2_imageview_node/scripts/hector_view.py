@@ -17,12 +17,12 @@ class Node:
         topic = rospy.get_param("~topic")
 
         self.sub_camera = rospy.Subscriber(topic, CompressedImage, self.callback)
-        rospy.loginfo("Camera_view - subscribed topic : " + topic)
+        rospy.loginfo("Hector_view - subscribed topic : " + topic)
 
     def callback(self, CompressedImage):
         self.image_view.display_image(CompressedImage)
 
 if __name__ == '__main__':
-    rospy.init_node('camera_view', anonymous=True)
+    rospy.init_node('hector_view', anonymous=True)
     node = Node()
     node.run()

@@ -20,13 +20,9 @@
     <arg name="a_down_minimum_delta" value="2000"/>
   </include>
 
-  <!-- image views for incoming images -->
-
-  <node name="image_view" pkg="image_view" type="image_view" output="screen">
-    <remap from="image" to="nordic_node/recv_image_camera" />
-  </node>
-  <node name="image_view" pkg="image_view" type="image_view" output="screen">
-    <remap from="image" to="nordic_node/recv_image_hector" />
-  </node>
+  <!-- CV2 Image Views for incoming images -->
+  <include file="src/cv2_imageview_node/launch/cv2_imageview.launch">
+  
+  </include>
 
 </launch>

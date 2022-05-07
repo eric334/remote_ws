@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import rospy
 import binascii
+import traceback
 from sensor_msgs.msg import CompressedImage
 from serial import Serial, serialutil
 from rospy.msg import AnyMsg
@@ -53,23 +54,24 @@ class Node:
                 print("Entire message: \n " + str(binascii.hexlify(message)))
 
                 print("done message")
-                buffer = BytesIO(message)
-                compressedImage.deserialize(buffer.getvalue())
+                try:
+                    buffer = BytesIO(message)
+                    compressedImage.deserialize(buffer.getvalue())
+                except:
+                    rospy.logerr("Deserialization of message failed, traceback: \n" + traceback.format_exc())
 
                 print(compressedImage)
 
                 if compressedImage.header.frame_id == "cam":
                     self.pub_camera.publish(compressedImage)
 
-                    self.imagetools.display_image(compressedImage, 400, "Camera View")
+                if compressedImage.header.frame_id == "cam":
+                    self.pub_hector.publish(compressedImage)
 
             elif data != b'':
                 #print(len(data))
                 #print(binascii.hexlify(data))
                 message += data
-
-            # if data.header.frame_id = "cam":
-            #     self.pub_camera.publish(data)
             
             # rate.sleep()
 
