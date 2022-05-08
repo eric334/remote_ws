@@ -5,24 +5,42 @@
 
   <!-- Nordic controller -->
   <include file="src/nordic_node/launch/nordic.launch">
+    
     <arg name="dev" value="/dev/ttyACM0"/>
     <arg name="baud" value="115200"/>
     <arg name="twist_topic" value="joy_twist"/>
     <arg name="empty_topic" value="joy_empty"/>
     <arg name="camera_topic" value="recv_image_camera"/>
     <arg name="hector_topic" value="recv_image_hector"/>
+
+    <!-- Bool for structure evaluation -->
+    <arg name="enable" value="False">
   </include>
 
-  <include file="src/joy_node/launch/joy_node.launch">
+  <!-- Joystick controls publisher -->
+  <include file="src/command_node/launch/command_node.launch">
     <arg name="twist_topic" value="joy_twist"/>
     <arg name="empty_topic" value="joy_empty"/>
     <arg name="update_rate" value="500"/>
     <arg name="a_down_minimum_delta" value="2000"/>
+
+    <!-- Bool for structure evaluation -->
+    <arg name="enable" value="False">
   </include>
 
   <!-- CV2 Image Views for incoming images -->
   <include file="src/cv2_imageview_node/launch/cv2_imageview.launch">
-  
+    <arg name="hector_display_width" value="200"/>
+    <arg name="camera_display_width" value="400"/>
+
+    <arg name="camera_topic" value="recv_image_camera"/>
+    <arg name="hector_topic" value="recv_image_hector"/>
+
+    <arg name="camera_window_name" value="Camera View"/>
+    <arg name="hector_window_name" value="LIDAR Local Map"/>
+
+    <!-- Bool for structure evaluation -->
+    <arg name="enable" value="False">
   </include>
 
 </launch>

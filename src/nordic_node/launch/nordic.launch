@@ -8,12 +8,15 @@
     <arg name="camera_topic" default="recv_image_camera"/>
     <arg name="hector_topic" default="recv_image_hector"/>
 
+    <arg name="enable" default="True"/>
+
     <node pkg="nordic_node" type="nordic_send.py" name="nordic_send" output="screen">
         <param name="~dev" value="$(arg dev)"/>
         <param name="~baud" value="$(arg baud)"/>
         <param name="~twist_topic" value="$(arg twist_topic)"/>
         <param name="~empty_topic" value="$(arg empty_topic)"/>
         <param name="~jpeg_quality_level" value="$(arg jpeg_quality_level)"/>
+        <param name="~enable" value="$(arg enable)"/>
     </node>
 
     <node pkg="nordic_node" type="nordic_recv.py" name="nordic_recv" output="screen">
@@ -21,6 +24,7 @@
         <param name="~baud" value="$(arg baud)"/>
         <param name="~camera_topic" value="$(arg camera_topic)"/>
         <param name="~hector_topic" value="$(arg hector_topic)"/>
+        <param name="~enable" value="$(arg enable)"/>
     </node>
 
 </launch>
