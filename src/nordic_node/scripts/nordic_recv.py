@@ -1,15 +1,22 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
+import binascii
+import traceback
 from std_msgs.msg import Empty
-from std_msgs.msg import CompressedImage
+from sensor_msgs.msg import CompressedImage
 from serial import Serial, serialutil
-import StringIO
+from rospy.msg import AnyMsg
+from io import BytesIO
 import sys
 
-# recieve data messages from nordic, get message type, publish,
-# then send notification to reply with control data
+# recieve data messages from nordic, get message type and publish
 class Node:
     def __init__(self):
+        self.enable = rospy.get_param("~enable")
+        self.enable_reply_ticks = rospy.get_param("~enable_reply_ticks")
+        rospy.loginfo("Nordic_recv - serial enabled : " + str(self.enable))
+        rospy.loginfo("Nordic_recv - reply ticks enabled : " + str(self.enable_reply_ticks))
+
         camera_topic = rospy.get_param("~camera_topic")
         hector_topic = rospy.get_param("~hector_topic")
         reply_topic = rospy.get_param("~reply_topic")
@@ -17,79 +24,29 @@ class Node:
         dev = rospy.get_param("~dev", "/dev/ttyACM0")
         baud = int(rospy.get_param("~baud", "115200"))
         
-        rospy.loginfo("Nordic_recv - opening serial : " + dev)
-        # TODO COPY SPECIFICS ?
-        self.serial = Serial(dev, timeout=1, baudrate=baud)
+        if self.enable:
+            rospy.loginfo("Nordic_recv - opening serial : " + dev)
+            self.serial = Serial(dev, timeout=1, baudrate=baud)
 
-        self.pub_reply = rospy.Publisher(reply_topic, Empty)
+        self.pub_reply = rospy.Publisher(reply_topic, Empty, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + reply_topic)
-        self.pub_camera = rospy.Publisher(camera_topic, CompressedImage)
+        self.pub_camera = rospy.Publisher(camera_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
-        self.pub_hector = rospy.Publisher(hector_topic, CompressedImage)
+        self.pub_hector = rospy.Publisher(hector_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + hector_topic)
 
     def run(self):
-        rate = rospy.Rate(100)
-
-        while not rospy.is_shutdown():
-            bytesToRead = self.serial.inWaiting()
-            data = self.serial.read(bytesToRead)
-
-            message_type = str(data._type)
-
-            if message_type == "sensor_msgs/CompressedImage":
-                
-                if data.header.frame_id = "cam":
-                    self.pub_camera.publish(data)
-
-                elif data.header.frame_id = "hec":
-                    self.pub_hector.publish(data)
-
-                else:
-                    rospy.logdebug("Error: unrecognized frame id found: "+ data.header.frame_id)
+        # do nothing if disabled but stay alive
+        if not self.enable:
+            if self.enable_reply_ticks:
+                rate = rospy.Rate(3) # hz
+                while not rospy.is_shutdown():
+                    self.pub_reply.publish(Empty())
+                    rate.sleep()
             else:
-                rospy.logdebug("Error: unrecognized message type found: "+message_type)
-            
-            rate.sleep()
+                rospy.spin()
+            return
 
-
-if __name__ == '__main__':
-    rospy.init_node('nordic_recv', anonymous=True)
-    node = Node()
-    node.run()
-
-
-
-
-#!/usr/bin/env python3
-import rospy
-import binascii
-import traceback
-from sensor_msgs.msg import CompressedImage
-from serial import Serial, serialutil
-from rospy.msg import AnyMsg
-from io import BytesIO
-from image_tools import ImageTools
-import sys
-
-# recieve data messages from nordic, get message type and publish
-class Node:
-    def __init__(self):
-        camera_topic = rospy.get_param("~camera_topic")
-        hector_topic = rospy.get_param("~hector_topic")
-
-        dev = rospy.get_param("~dev", "/dev/ttyACM0")
-        baud = int(rospy.get_param("~baud", "115200"))
-        
-        rospy.loginfo("Nordic_recv - opening serial : " + dev)
-        self.serial = Serial(dev, timeout=1, baudrate=baud)
-
-        self.pub_camera = rospy.Publisher(camera_topic, CompressedImage)
-        rospy.loginfo("Nordic_recv - published topic : " + camera_topic, queue_size = 1)
-        self.pub_hector = rospy.Publisher(hector_topic, CompressedImage)
-        rospy.loginfo("Nordic_recv - published topic : " + hector_topic, queue_size = 1)
-
-    def run(self):
         #rate = rospy.Rate(100)
 
         message = b''
@@ -129,6 +86,9 @@ class Node:
                     self.pub_hector.publish(compressedImage)
                 else:
                     rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
+
+                # initiate send back message
+                self.pub_reply.publish(Empty())
 
             elif data != b'':
                 #print(len(data))

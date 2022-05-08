@@ -22,6 +22,9 @@ class Node:
     def callback(self, CompressedImage):
         self.image_view.display_image(CompressedImage)
 
+    def run(self):
+        rospy.spin()
+
 if __name__ == '__main__':
     rospy.init_node('hector_view', anonymous=True)
     node = Node()

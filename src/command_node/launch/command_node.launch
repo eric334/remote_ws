@@ -1,23 +1,21 @@
 <launch>
     <arg name="twist_topic" default="joy_twist"/>
     <arg name="empty_topic" default="joy_empty"/>
-    <arg name="update_rate" default="2"/> <!-- in hz -->
+    <arg name="update_interval" default =".15"/>
     <arg name="a_down_minimum_delta" default="2"/> <!-- in seconds -->
 
     <node pkg="command_node" type="command_node.py" name="command_node" output="screen">
         <param name="~twist_topic" value="$(arg twist_topic)"/>
         <param name="~empty_topic" value="$(arg empty_topic)"/>
-        <param name="~update_rate" value="$(arg update_rate)"/>
         <param name="~a_down_minimum_delta" value="$(arg a_down_minimum_delta)"/>
     </node>
-
 
     <arg name="dev" default="/dev/input/js0" />
 
     <!-- Launch joy node -->
     <node pkg="joy" type="joy_node" name="joy">
         <param name="dev" value="$(arg dev)" />
-        <param name="deadzone" value="0.2" />
-        <param name="coalesce_interval" value="0.15"/>
+        <param name="deadzone" value="0.1" />
+        <param name="coalesce_interval" value="$(arg update_interval)"/>
     </node>
 </launch>

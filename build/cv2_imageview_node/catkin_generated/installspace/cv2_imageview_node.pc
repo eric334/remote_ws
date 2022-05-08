@@ -1,0 +1,8 @@
+prefix=/home/e/remote_ws/install
+
+Name: cv2_imageview_node
+Description: Description of cv2_imageview_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -134,6 +134,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/e/remote_ws/build/command_node/cmake_install.cmake")
   include("/home/e/remote_ws/build/decompress_node/cmake_install.cmake")
   include("/home/e/remote_ws/build/nordic_node/cmake_install.cmake")
+  include("/home/e/remote_ws/build/cv2_imageview_node/cmake_install.cmake")
   include("/home/e/remote_ws/build/usb_cam/cmake_install.cmake")
 
 endif()

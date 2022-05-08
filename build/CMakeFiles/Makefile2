@@ -57,6 +57,7 @@ all: gtest/all
 all: command_node/all
 all: decompress_node/all
 all: nordic_node/all
+all: cv2_imageview_node/all
 all: usb_cam/all
 
 .PHONY : all
@@ -66,6 +67,7 @@ preinstall: gtest/preinstall
 preinstall: command_node/preinstall
 preinstall: decompress_node/preinstall
 preinstall: nordic_node/preinstall
+preinstall: cv2_imageview_node/preinstall
 preinstall: usb_cam/preinstall
 
 .PHONY : preinstall
@@ -80,6 +82,7 @@ clean: gtest/clean
 clean: command_node/clean
 clean: decompress_node/clean
 clean: nordic_node/clean
+clean: cv2_imageview_node/clean
 clean: usb_cam/clean
 
 .PHONY : clean
@@ -125,6 +128,24 @@ command_node/clean: command_node/CMakeFiles/rosgraph_msgs_generate_messages_cpp.
 command_node/clean: command_node/CMakeFiles/roscpp_generate_messages_eus.dir/clean
 
 .PHONY : command_node/clean
+
+#=============================================================================
+# Directory level rules for directory cv2_imageview_node
+
+# Recursive "all" directory target.
+cv2_imageview_node/all:
+
+.PHONY : cv2_imageview_node/all
+
+# Recursive "preinstall" directory target.
+cv2_imageview_node/preinstall:
+
+.PHONY : cv2_imageview_node/preinstall
+
+# Recursive "clean" directory target.
+cv2_imageview_node/clean:
+
+.PHONY : cv2_imageview_node/clean
 
 #=============================================================================
 # Directory level rules for directory decompress_node

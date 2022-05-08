@@ -14,18 +14,16 @@
     <arg name="hector_topic" value="recv_image_hector"/>
 
     <!-- Bool for structure evaluation -->
-    <arg name="enable" value="False">
+    <arg name="enable" value="False"/>
+    <arg name="enable_reply_ticks" value="True"/>
   </include>
 
   <!-- Joystick controls publisher -->
   <include file="src/command_node/launch/command_node.launch">
     <arg name="twist_topic" value="joy_twist"/>
     <arg name="empty_topic" value="joy_empty"/>
-    <arg name="update_rate" value="500"/>
-    <arg name="a_down_minimum_delta" value="2000"/>
-
-    <!-- Bool for structure evaluation -->
-    <arg name="enable" value="False">
+    <arg name="update_interval" value=".15"/>
+    <arg name="a_down_minimum_delta" value="2"/> <!-- in seconds -->
   </include>
 
   <!-- CV2 Image Views for incoming images -->
@@ -38,9 +36,6 @@
 
     <arg name="camera_window_name" value="Camera View"/>
     <arg name="hector_window_name" value="LIDAR Local Map"/>
-
-    <!-- Bool for structure evaluation -->
-    <arg name="enable" value="False">
   </include>
 
 </launch>
