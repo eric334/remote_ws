@@ -44,7 +44,7 @@ class Node:
         string += f"\n"
         string += f"Passive Infrared Sensors :\n"
         for i, item in enumerate(self.pir_data):
-            string += f"    Node {i+1} : {str(bool(item))}\n"
+            string += f"    Node {i+1} : {"Triggered" if item else "Not Triggered"}\n"
         string += f"\n"
 
         rospy.loginfo(string)
@@ -63,6 +63,7 @@ class Node:
     def callback_pir_string(self, string):
         self.updates_received += 1
         self.num_nodes = len(string.data)
+        # this may not work
         self.pir_data = list(map(int, string.data))
 
 
