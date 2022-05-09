@@ -13,6 +13,7 @@ class Node:
         twist_topic = rospy.get_param("~twist_topic")
         empty_topic = rospy.get_param("~empty_topic")
         reply_topic = rospy.get_param("~reply_topic")
+        control_info_topic = rospy.get_param("~control_info_topic")
 
         self.enable = rospy.get_param("~enable")
         rospy.loginfo("Nordic_send - serial enabled : " + str(self.enable))
@@ -37,6 +38,9 @@ class Node:
         self.sub_empty = rospy.Subscriber(empty_topic, Empty, self.callback_empty)
         rospy.loginfo("Nordic_send - subscribed to topic : " + empty_topic)
         self.sub_reply = rospy.Subscriber(reply_topic, Empty, self.callback_reply)
+        rospy.loginfo("Nordic_send - subscribed to topic : " + reply_topic)
+        self.pub_control = rospy.Publisher(control_info_topic, TwistStamped, queue_size=1)
+        rospy.loginfo("Nordic_send - published topic : " + control_info_topic)
 
     def run(self):
         rospy.spin()
@@ -50,7 +54,7 @@ class Node:
             control_twist.header.frame_id = "condep"
             self.send_deploy = False
 
-        print(control_twist)
+        pub_control.publish(control_twist)
         
         if self.enable:
             write_serial(control_twist)

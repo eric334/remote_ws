@@ -3,6 +3,7 @@ import rospy
 import binascii
 import traceback
 from std_msgs.msg import Empty
+from std_msgs.msg import String
 from sensor_msgs.msg import CompressedImage
 from serial import Serial, serialutil
 from rospy.msg import AnyMsg
@@ -20,9 +21,13 @@ class Node:
         camera_topic = rospy.get_param("~camera_topic")
         hector_topic = rospy.get_param("~hector_topic")
         reply_topic = rospy.get_param("~reply_topic")
+        pir_string_topic = rospy.get_param("~pir_string_topic")
 
         dev = rospy.get_param("~dev", "/dev/ttyACM0")
         baud = int(rospy.get_param("~baud", "115200"))
+
+        self.last_send_time = None
+        self.total_updates = 0
         
         if self.enable:
             rospy.loginfo("Nordic_recv - opening serial : " + dev)
@@ -34,6 +39,8 @@ class Node:
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
         self.pub_hector = rospy.Publisher(hector_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + hector_topic)
+        self.pub_pir_string = rospy.Publisher(pir_string_topic, String, queue_size = 1)
+        rospy.loginfo("Nordic_recv - published topic : " + pir_string_topic)
 
     def run(self):
         # do nothing if disabled but stay alive
@@ -86,6 +93,12 @@ class Node:
                     self.pub_hector.publish(compressedImage)
                 else:
                     rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
+
+                # get node and pir string from end of end packet
+                num_nodes = int.from_bytes(data[3:4], 'big')
+                pir_string = String()
+                pir_string.data = data[4:4+num_nodes].decode("utf-8")
+                pub_pir_string.publish(pir_string)
 
                 # initiate send back message
                 self.pub_reply.publish(Empty())

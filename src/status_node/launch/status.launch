@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="status_node" type="status_node.py" name="status_node" output="screen">
+    </node>
+</launch>

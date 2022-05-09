@@ -38,4 +38,7 @@
     <arg name="hector_window_name" value="LIDAR Local Map"/>
   </include>
 
+  <!-- Status node -->
+  <include file="src/status_node/launch/status.launch">
+  </include>
 </launch>
