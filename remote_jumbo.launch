@@ -15,7 +15,7 @@
 
     <!-- Bool for structure evaluation -->
     <arg name="enable" value="False"/>
-    <arg name="enable_reply_ticks" value="True"/>
+    <arg name="enable_reply_ticks" value="False"/>
   </include>
 
   <!-- Joystick controls publisher -->

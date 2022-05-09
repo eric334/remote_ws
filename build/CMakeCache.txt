@@ -468,7 +468,7 @@ gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 image_transport_DIR:PATH=/opt/ros/noetic/share/image_transport/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/libcamera_calibration_parsers.so
+lib:FILEPATH=/opt/ros/noetic/lib/librostime.so
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/noetic/share/message_filters/cmake
@@ -520,6 +520,12 @@ rostime_DIR:PATH=/opt/ros/noetic/share/rostime/cmake
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/noetic/share/sensor_msgs/cmake
+
+//Value Computed by CMake
+status_node_BINARY_DIR:STATIC=/home/e/remote_ws/build/status_node
+
+//Value Computed by CMake
+status_node_SOURCE_DIR:STATIC=/home/e/remote_ws/src/status_node
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
@@ -687,7 +693,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

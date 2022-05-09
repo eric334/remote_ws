@@ -55,20 +55,18 @@ CMAKE_BINARY_DIR = /home/e/remote_ws/build
 # The main recursive "all" target.
 all: gtest/all
 all: command_node/all
-all: decompress_node/all
 all: nordic_node/all
+all: status_node/all
 all: cv2_imageview_node/all
-all: usb_cam/all
 
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: gtest/preinstall
 preinstall: command_node/preinstall
-preinstall: decompress_node/preinstall
 preinstall: nordic_node/preinstall
+preinstall: status_node/preinstall
 preinstall: cv2_imageview_node/preinstall
-preinstall: usb_cam/preinstall
 
 .PHONY : preinstall
 
@@ -80,10 +78,9 @@ clean: CMakeFiles/tests.dir/clean
 clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: command_node/clean
-clean: decompress_node/clean
 clean: nordic_node/clean
+clean: status_node/clean
 clean: cv2_imageview_node/clean
-clean: usb_cam/clean
 
 .PHONY : clean
 
@@ -146,24 +143,6 @@ cv2_imageview_node/preinstall:
 cv2_imageview_node/clean:
 
 .PHONY : cv2_imageview_node/clean
-
-#=============================================================================
-# Directory level rules for directory decompress_node
-
-# Recursive "all" directory target.
-decompress_node/all:
-
-.PHONY : decompress_node/all
-
-# Recursive "preinstall" directory target.
-decompress_node/preinstall:
-
-.PHONY : decompress_node/preinstall
-
-# Recursive "clean" directory target.
-decompress_node/clean:
-
-.PHONY : decompress_node/clean
 
 #=============================================================================
 # Directory level rules for directory gtest
@@ -241,29 +220,22 @@ nordic_node/clean: nordic_node/CMakeFiles/_catkin_empty_exported_target.dir/clea
 .PHONY : nordic_node/clean
 
 #=============================================================================
-# Directory level rules for directory usb_cam
+# Directory level rules for directory status_node
 
 # Recursive "all" directory target.
-usb_cam/all: usb_cam/CMakeFiles/usb_cam.dir/all
-usb_cam/all: usb_cam/CMakeFiles/usb_cam_node.dir/all
+status_node/all:
 
-.PHONY : usb_cam/all
+.PHONY : status_node/all
 
 # Recursive "preinstall" directory target.
-usb_cam/preinstall:
+status_node/preinstall:
 
-.PHONY : usb_cam/preinstall
+.PHONY : status_node/preinstall
 
 # Recursive "clean" directory target.
-usb_cam/clean: usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/usb_cam.dir/clean
-usb_cam/clean: usb_cam/CMakeFiles/usb_cam_node.dir/clean
+status_node/clean:
 
-.PHONY : usb_cam/clean
+.PHONY : status_node/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/doxygen.dir
@@ -1210,195 +1182,6 @@ _catkin_empty_exported_target: nordic_node/CMakeFiles/_catkin_empty_exported_tar
 nordic_node/CMakeFiles/_catkin_empty_exported_target.dir/clean:
 	$(MAKE) -f nordic_node/CMakeFiles/_catkin_empty_exported_target.dir/build.make nordic_node/CMakeFiles/_catkin_empty_exported_target.dir/clean
 .PHONY : nordic_node/CMakeFiles/_catkin_empty_exported_target.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num= "Built target std_srvs_generate_messages_cpp"
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_cpp: usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-
-.PHONY : std_srvs_generate_messages_cpp
-
-# clean rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_cpp.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num= "Built target std_srvs_generate_messages_eus"
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_eus: usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-
-.PHONY : std_srvs_generate_messages_eus
-
-# clean rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/clean
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_eus.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num= "Built target std_srvs_generate_messages_lisp"
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_lisp: usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : std_srvs_generate_messages_lisp
-
-# clean rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/clean
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_lisp.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num= "Built target std_srvs_generate_messages_nodejs"
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_nodejs: usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_srvs_generate_messages_nodejs
-
-# clean rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/clean
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_nodejs.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num= "Built target std_srvs_generate_messages_py"
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_py: usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-.PHONY : std_srvs_generate_messages_py
-
-# clean rule for target.
-usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/build.make usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/clean
-.PHONY : usb_cam/CMakeFiles/std_srvs_generate_messages_py.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/usb_cam.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/usb_cam.dir/all:
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam.dir/build.make usb_cam/CMakeFiles/usb_cam.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam.dir/build.make usb_cam/CMakeFiles/usb_cam.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num=9,10 "Built target usb_cam"
-.PHONY : usb_cam/CMakeFiles/usb_cam.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/usb_cam.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/usb_cam.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/usb_cam.dir/rule
-
-# Convenience name for target.
-usb_cam: usb_cam/CMakeFiles/usb_cam.dir/rule
-
-.PHONY : usb_cam
-
-# clean rule for target.
-usb_cam/CMakeFiles/usb_cam.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam.dir/build.make usb_cam/CMakeFiles/usb_cam.dir/clean
-.PHONY : usb_cam/CMakeFiles/usb_cam.dir/clean
-
-#=============================================================================
-# Target rules for target usb_cam/CMakeFiles/usb_cam_node.dir
-
-# All Build rule for target.
-usb_cam/CMakeFiles/usb_cam_node.dir/all: usb_cam/CMakeFiles/usb_cam.dir/all
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam_node.dir/build.make usb_cam/CMakeFiles/usb_cam_node.dir/depend
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam_node.dir/build.make usb_cam/CMakeFiles/usb_cam_node.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/e/remote_ws/build/CMakeFiles --progress-num=11,12 "Built target usb_cam_node"
-.PHONY : usb_cam/CMakeFiles/usb_cam_node.dir/all
-
-# Build rule for subdir invocation for target.
-usb_cam/CMakeFiles/usb_cam_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 usb_cam/CMakeFiles/usb_cam_node.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/e/remote_ws/build/CMakeFiles 0
-.PHONY : usb_cam/CMakeFiles/usb_cam_node.dir/rule
-
-# Convenience name for target.
-usb_cam_node: usb_cam/CMakeFiles/usb_cam_node.dir/rule
-
-.PHONY : usb_cam_node
-
-# clean rule for target.
-usb_cam/CMakeFiles/usb_cam_node.dir/clean:
-	$(MAKE) -f usb_cam/CMakeFiles/usb_cam_node.dir/build.make usb_cam/CMakeFiles/usb_cam_node.dir/clean
-.PHONY : usb_cam/CMakeFiles/usb_cam_node.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

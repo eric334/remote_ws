@@ -6,7 +6,6 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("command_node")
-subdirs("decompress_node")
 subdirs("nordic_node")
+subdirs("status_node")
 subdirs("cv2_imageview_node")
-subdirs("usb_cam")
