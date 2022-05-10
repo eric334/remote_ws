@@ -8,10 +8,15 @@
     
     <arg name="dev" value="/dev/ttyACM0"/>
     <arg name="baud" value="115200"/>
-    <arg name="twist_topic" value="joy_twist"/>
-    <arg name="empty_topic" value="joy_empty"/>
-    <arg name="camera_topic" value="recv_image_camera"/>
-    <arg name="hector_topic" value="recv_image_hector"/>
+    <arg name="twist_topic" value="command/twist"/>
+    <arg name="empty_topic" value="command/deploy"/>
+    <arg name="camera_topic" value="image/camera"/>
+    <arg name="hector_topic" value="image/hector"/>
+
+
+    <arg name="control_info_topic" default="nordic/control_info"/>
+    <arg name="pir_string_topic" default="nordic/pir_string"/>
+    <arg name="reply_topic" value="nordic/send_reply"/>
 
     <!-- Bool for structure evaluation -->
     <arg name="enable" value="False"/>
@@ -20,10 +25,12 @@
 
   <!-- Joystick controls publisher -->
   <include file="src/command_node/launch/command_node.launch">
-    <arg name="twist_topic" value="joy_twist"/>
-    <arg name="empty_topic" value="joy_empty"/>
+    <arg name="twist_topic" value="command/twist"/>
+    <arg name="empty_topic" value="command/deploy"/>
     <arg name="update_interval" value=".15"/>
     <arg name="a_down_minimum_delta" value="2"/> <!-- in seconds -->
+
+    <arg name="enable" value="False"/>
   </include>
 
   <!-- CV2 Image Views for incoming images -->
@@ -31,8 +38,8 @@
     <arg name="hector_display_width" value="200"/>
     <arg name="camera_display_width" value="400"/>
 
-    <arg name="camera_topic" value="recv_image_camera"/>
-    <arg name="hector_topic" value="recv_image_hector"/>
+    <arg name="camera_topic" value="image/camera"/>
+    <arg name="hector_topic" value="image/hector"/>
 
     <arg name="camera_window_name" value="Camera View"/>
     <arg name="hector_window_name" value="LIDAR Local Map"/>
@@ -40,5 +47,7 @@
 
   <!-- Status node -->
   <include file="src/status_node/launch/status.launch">
+    <arg name="control_info_topic" default = "nordic/control_info"/>
+    <arg name="pir_string_topic" default = "nordic/pir_string"/>
   </include>
 </launch>

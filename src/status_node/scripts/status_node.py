@@ -15,7 +15,7 @@ class Node:
         self.num_nodes = 0
         self.last_send_time = None
         self.updates_received = 0
-        self.pir_data = ""
+        self.pir_data = []
         self.linear, self.angular, self.deploy_node = 0, 0, 0
         self.round_trip_time = ""
 
@@ -44,7 +44,8 @@ class Node:
         string += f"\n"
         string += f"Passive Infrared Sensors :\n"
         for i, item in enumerate(self.pir_data):
-            string += f"    Node {i+1} : {"Triggered" if item else "Not Triggered"}\n"
+            item = "Triggered" if item else "Not Triggered"
+            string += f"    Node {i+1} : {(item)}\n"
         string += f"\n"
 
         rospy.loginfo(string)
@@ -65,6 +66,7 @@ class Node:
         self.num_nodes = len(string.data)
         # this may not work
         self.pir_data = list(map(int, string.data))
+        print("this was called")
 
 
 if __name__ == '__main__':

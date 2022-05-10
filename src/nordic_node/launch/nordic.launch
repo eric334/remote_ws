@@ -14,8 +14,7 @@
     <arg name="control_info_topic" default="control_info"/>
     <arg name="pir_string_topic" default="pir_string"/>
 
-    <!-- Locally defined topic -->
-    <arg name="reply_topic" value="send_reply"/>
+    <arg name="reply_topic" default="send_reply"/>
 
     <node pkg="nordic_node" type="nordic_send.py" name="nordic_send" output="screen">
         <param name="~dev" value="$(arg dev)"/>
