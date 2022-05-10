@@ -59,8 +59,6 @@ class Node:
         message = b''
         last_packet = 0
 
-        compressedImage = CompressedImage()
-
         while not rospy.is_shutdown():
             bytesToRead = self.serial.inWaiting()
             data = self.serial.read(bytesToRead)
@@ -79,6 +77,8 @@ class Node:
                 message = message[:len(message) - 64 + last_packet]
                 #print("Entire message: \n " + str(binascii.hexlify(message)))
 
+                compressedImage = CompressedImage()
+
                 try:
                     buffer = BytesIO(message)
                     compressedImage.deserialize(buffer.getvalue())
@@ -89,7 +89,7 @@ class Node:
 
                 if compressedImage.header.frame_id == "cam":
                     self.pub_camera.publish(compressedImage)
-                if compressedImage.header.frame_id == "cam":
+                elif compressedImage.header.frame_id == "cam":
                     self.pub_hector.publish(compressedImage)
                 else:
                     rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
