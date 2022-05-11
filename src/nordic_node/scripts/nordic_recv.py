@@ -19,7 +19,7 @@ class Node:
         rospy.loginfo("Nordic_recv - reply ticks enabled : " + str(self.enable_reply_ticks))
 
         camera_topic = rospy.get_param("~camera_topic")
-        hector_topic = rospy.get_param("~hector_topic")
+        tilemap_topic = rospy.get_param("~tilemap_topic")
         reply_topic = rospy.get_param("~reply_topic")
         pir_string_topic = rospy.get_param("~pir_string_topic")
 
@@ -37,8 +37,8 @@ class Node:
         rospy.loginfo("Nordic_recv - published topic : " + reply_topic)
         self.pub_camera = rospy.Publisher(camera_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
-        self.pub_hector = rospy.Publisher(hector_topic, CompressedImage, queue_size = 1)
-        rospy.loginfo("Nordic_recv - published topic : " + hector_topic)
+        self.pub_tilemap = rospy.Publisher(tilemap_topic, CompressedImage, queue_size = 1)
+        rospy.loginfo("Nordic_recv - published topic : " + tilemap_topic)
         self.pub_pir_string = rospy.Publisher(pir_string_topic, String, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + pir_string_topic)
 
@@ -89,8 +89,12 @@ class Node:
 
                 if compressedImage.header.frame_id == "cam":
                     self.pub_camera.publish(compressedImage)
-                elif compressedImage.header.frame_id == "cam":
-                    self.pub_hector.publish(compressedImage)
+                elif compressedImage.header.frame_id == "tile":
+                    self.pub_tilemap.publish(compressedImage)
+                elif compressedImage.header.frame_id == "full":
+                    # get pose data
+
+                    self.pub_fullmap.publish(compressedImage)
                 else:
                     rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
 

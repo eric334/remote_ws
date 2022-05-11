@@ -39,7 +39,8 @@
     <arg name="camera_display_width" value="400"/>
 
     <arg name="camera_topic" value="image/camera"/>
-    <arg name="hector_topic" value="image/hector"/>
+    <arg name="hector_topic" value="image/tile_map"/>
+    <arg name="map_topic" value="image/full_map"/>
 
     <arg name="camera_window_name" value="Camera View"/>
     <arg name="hector_window_name" value="LIDAR Local Map"/>
