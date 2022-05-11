@@ -41,8 +41,8 @@
     <arg name="camera_display_width" value="400"/>
 
     <arg name="camera_topic" value="image/camera"/>
-    <arg name="tilemap_topic" value="image/tile_map"/>
-    <arg name="fullmap_topic" value="image/full_map"/>
+    <arg name="tilemap_topic" value="image/tilemap"/>
+    <arg name="fullmap_topic" value="image/fullmap"/>
 
     <arg name="pose_topic" value="pose"/>
 
