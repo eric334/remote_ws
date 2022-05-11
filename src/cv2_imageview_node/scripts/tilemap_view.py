@@ -26,6 +26,6 @@ class Node:
         rospy.spin()
 
 if __name__ == '__main__':
-    rospy.init_node('hector_view', anonymous=True)
+    rospy.init_node('tilemap_view', anonymous=True)
     node = Node()
     node.run()

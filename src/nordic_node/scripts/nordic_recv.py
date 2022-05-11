@@ -5,10 +5,13 @@ import traceback
 from std_msgs.msg import Empty
 from std_msgs.msg import String
 from sensor_msgs.msg import CompressedImage
+from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose
 from serial import Serial, serialutil
 from rospy.msg import AnyMsg
 from io import BytesIO
 import sys
+import numpy as np
 
 # recieve data messages from nordic, get message type and publish
 class Node:
@@ -22,6 +25,7 @@ class Node:
         tilemap_topic = rospy.get_param("~tilemap_topic")
         reply_topic = rospy.get_param("~reply_topic")
         pir_string_topic = rospy.get_param("~pir_string_topic")
+        pose_topic = rospy.get_param("~pose_topic")
 
         dev = rospy.get_param("~dev", "/dev/ttyACM0")
         baud = int(rospy.get_param("~baud", "115200"))
@@ -41,6 +45,8 @@ class Node:
         rospy.loginfo("Nordic_recv - published topic : " + tilemap_topic)
         self.pub_pir_string = rospy.Publisher(pir_string_topic, String, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + pir_string_topic)
+        self.pub_pose = rospy.Publisher(pose_topic, Pose, queue_size = 1)
+        rospy.loginfo("Nordic_recv - published topic : " + pose_topic)
 
     def run(self):
         # do nothing if disabled but stay alive
@@ -90,10 +96,12 @@ class Node:
                 if compressedImage.header.frame_id == "cam":
                     self.pub_camera.publish(compressedImage)
                 elif compressedImage.header.frame_id == "tile":
+                    # get pose data
+                    self.publish_pose(compressedImage.header.seq, "tile")
                     self.pub_tilemap.publish(compressedImage)
                 elif compressedImage.header.frame_id == "full":
                     # get pose data
-
+                    self.publish_pose(compressedImage.header.seq, "full")
                     self.pub_fullmap.publish(compressedImage)
                 else:
                     rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
@@ -113,6 +121,16 @@ class Node:
                 message += data
             
             # rate.sleep()
+
+        def publish_pose(self, uint32, maptype):
+            # get pose from uint32 pid num
+            pose = PoseStamped()
+            pose.header.frame_id = maptype
+            array = uint32.astype(np.uint16)
+            pose.pose.position.x = array[0]
+            pose.pose.position.y = array[1]
+            
+            self.pub_pose.publish(pose)
 
 
 if __name__ == '__main__':
