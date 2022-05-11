@@ -35,10 +35,13 @@ class Node:
 
         self.sub_twist = rospy.Subscriber(twist_topic, Twist, self.callback_twist)
         rospy.loginfo("Nordic_send - subscribed to topic : " + twist_topic)
+        
         self.sub_empty = rospy.Subscriber(empty_topic, Empty, self.callback_empty)
         rospy.loginfo("Nordic_send - subscribed to topic : " + empty_topic)
+        
         self.sub_reply = rospy.Subscriber(reply_topic, Empty, self.callback_reply)
         rospy.loginfo("Nordic_send - subscribed to topic : " + reply_topic)
+        
         self.pub_control = rospy.Publisher(control_info_topic, TwistStamped, queue_size=1)
         rospy.loginfo("Nordic_send - published topic : " + control_info_topic)
 

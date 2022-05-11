@@ -6,7 +6,10 @@
     <arg name="empty_topic" default="joy_empty"/>
 
     <arg name="camera_topic" default="recv_image_camera"/>
-    <arg name="hector_topic" default="recv_image_hector"/>
+    <arg name="tilemap_topic" default="recv_image_tilemap"/>
+    <arg name="fullmap_topic" default="recv_image_fullmap"/>
+
+    <arg name="pose_topic" default="recv_pose"/>
 
     <arg name="enable" default="True"/>
     <arg name="enable_reply_ticks" default="False"/>
@@ -22,7 +25,7 @@
         <param name="~twist_topic" value="$(arg twist_topic)"/>
         <param name="~empty_topic" value="$(arg empty_topic)"/>
         <param name="~reply_topic" value="$(arg reply_topic)"/>
-        <param name = "~control_info_topic" value = "$(arg control_info_topic)"/>
+        <param name="~control_info_topic" value = "$(arg control_info_topic)"/>
         <param name="~enable" value="$(arg enable)"/>
     </node>
 
@@ -30,11 +33,13 @@
         <param name="~dev" value="$(arg dev)"/>
         <param name="~baud" value="$(arg baud)"/>
         <param name="~camera_topic" value="$(arg camera_topic)"/>
-        <param name="~hector_topic" value="$(arg hector_topic)"/>
+        <param name="~tilemap_topic" value="$(arg tilemap_topic)"/>
+        <param name="~fullmap_topic" value="$(arg fullmap_topic)"/>
         <param name="~reply_topic" value="$(arg reply_topic)"/>
+        <param name="~pose_topic" value="$(arg pose_topic)"/>
         <param name="~pir_string_topic" value = "$(arg pir_string_topic)"/>
         <param name="~enable" value="$(arg enable)"/>
-        <param name="enable_reply_ticks" value="$(arg enable_reply_ticks)"/>
+        <param name="~enable_reply_ticks" value="$(arg enable_reply_ticks)"/>
     </node>
 
 </launch>

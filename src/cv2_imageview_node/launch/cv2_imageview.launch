@@ -1,23 +1,35 @@
 <launch>
-    <arg name="hector_display_width" default="200"/>
+    <arg name="tilemap_display_width" default="200"/>
+    <arg name="fullmap_display_width" default="900"/>
     <arg name="camera_display_width" default="400"/>
 
     <arg name="camera_topic" default="recv_image_camera"/>
-    <arg name="hector_topic" default="recv_image_hector"/>
+    <arg name="tilemap_topic" default="recv_image_tilemap"/>
+    <arg name="fullmap_topic" default="recv_image_fullmap"/>
+
+    <arg name="pose_topic" default="pose_topic"/>
 
     <arg name="camera_window_name" default="Camera View"/>
-    <arg name="hector_window_name" default="LIDAR Local Map"/>
+    <arg name="tilemap_window_name" default="LIDAR Local Map"/>
+    <arg name="fullmap_window_name" default="LIDAR Full Map"/>
 
     <node pkg="cv2_imageview_node" type="camera_view.py" name="camera_view" output="screen">
         <param name="~display_width" value="$(arg camera_display_width)"/>
         <param name="~window_name" value="$(arg camera_window_name)"/>
-        <param name="~topic" value="$(arg camera_topic)"/>
+        <param name="~camera_topic" value="$(arg camera_topic)"/>
     </node>
 
-    <node pkg="cv2_imageview_node" type="hector_view.py" name="hector_view" output="screen">
-        <param name="~display_width" value="$(arg hector_display_width)"/>
-        <param name="~window_name" value="$(arg hector_window_name)"/>
-        <param name="~topic" value="$(arg hector_topic)"/>
+    <node pkg="cv2_imageview_node" type="tilemap_view.py" name="tilemap_view" output="screen">
+        <param name="~display_width" value="$(arg tilemap_display_width)"/>
+        <param name="~window_name" value="$(arg tilemap_window_name)"/>
+        <param name="~tilemap_topic" value="$(arg tilemap_topic)"/>
+    </node>
+
+    <node pkg="cv2_imageview_node" type="fullmap_view.py" name="fullmap_view" output="screen">
+        <param name="~display_width" value="$(arg fullmap_display_width)"/>
+        <param name="~window_name" value="$(arg fullmap_window_name)"/>
+        <param name="~fullmap_topic" value="$(arg fullmap_topic)"/>
+        <param name="~pose_topic" value="$(arg pose_topic)"/>
     </node>
 
 </launch>

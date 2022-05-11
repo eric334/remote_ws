@@ -23,6 +23,7 @@ class Node:
 
         camera_topic = rospy.get_param("~camera_topic")
         tilemap_topic = rospy.get_param("~tilemap_topic")
+        fullmap_topic = rospy.get_param("~fullmap_topic")
         reply_topic = rospy.get_param("~reply_topic")
         pir_string_topic = rospy.get_param("~pir_string_topic")
         pose_topic = rospy.get_param("~pose_topic")
@@ -39,13 +40,20 @@ class Node:
 
         self.pub_reply = rospy.Publisher(reply_topic, Empty, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + reply_topic)
+
         self.pub_camera = rospy.Publisher(camera_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + camera_topic)
+        
         self.pub_tilemap = rospy.Publisher(tilemap_topic, CompressedImage, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + tilemap_topic)
+        
+        self.pub_fullmap = rospy.Publisher(fullmap_topic, CompressedImage, queue_size = 1)
+        rospy.loginfo("Nordic_recv - published topic : " + tilemap_topic)
+        
         self.pub_pir_string = rospy.Publisher(pir_string_topic, String, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + pir_string_topic)
-        self.pub_pose = rospy.Publisher(pose_topic, Pose, queue_size = 1)
+        
+        self.pub_pose = rospy.Publisher(pose_topic, PoseStamped, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + pose_topic)
 
     def run(self):

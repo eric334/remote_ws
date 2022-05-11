@@ -14,10 +14,10 @@ class Node:
         self.image_view.window_name = rospy.get_param("~window_name")
         self.image_view.display_width = int(rospy.get_param("~display_width"))
 
-        topic = rospy.get_param("~topic")
+        topic = rospy.get_param("~tilemap_topic")
 
         self.sub_camera = rospy.Subscriber(topic, CompressedImage, self.callback)
-        rospy.loginfo("Hector_view - subscribed topic : " + topic)
+        rospy.loginfo("Tilemap_view - subscribed topic : " + topic)
 
     def callback(self, CompressedImage):
         self.image_view.display_image(CompressedImage)

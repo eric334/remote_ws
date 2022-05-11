@@ -11,14 +11,15 @@
     <arg name="twist_topic" value="command/twist"/>
     <arg name="empty_topic" value="command/deploy"/>
     <arg name="camera_topic" value="image/camera"/>
-    <arg name="hector_topic" value="image/hector"/>
+    <arg name="tilemap_topic" value="image/tilemap"/>
+    <arg name="fullmap_topic" value="image/fullmap"/>
 
+    <arg name="pose_topic" value="pose"/>
 
     <arg name="control_info_topic" default="nordic/control_info"/>
     <arg name="pir_string_topic" default="nordic/pir_string"/>
     <arg name="reply_topic" value="nordic/send_reply"/>
 
-    <!-- Bool for structure evaluation -->
     <arg name="enable" value="False"/>
     <arg name="enable_reply_ticks" value="False"/>
   </include>
@@ -35,15 +36,19 @@
 
   <!-- CV2 Image Views for incoming images -->
   <include file="src/cv2_imageview_node/launch/cv2_imageview.launch">
-    <arg name="hector_display_width" value="200"/>
+    <arg name="tilemap_display_width" value="200"/>
+    <arg name="fullmap_display_width" value="200"/>
     <arg name="camera_display_width" value="400"/>
 
     <arg name="camera_topic" value="image/camera"/>
-    <arg name="hector_topic" value="image/tile_map"/>
-    <arg name="map_topic" value="image/full_map"/>
+    <arg name="tilemap_topic" value="image/tile_map"/>
+    <arg name="fullmap_topic" value="image/full_map"/>
+
+    <arg name="pose_topic" value="pose"/>
 
     <arg name="camera_window_name" value="Camera View"/>
-    <arg name="hector_window_name" value="LIDAR Local Map"/>
+    <arg name="tilemap_window_name" value="LIDAR Local Map"/>
+    <arg name="fullmap_window_name" value="LIDAR Full Map"/>
   </include>
 
   <!-- Status node -->
