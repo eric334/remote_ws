@@ -118,7 +118,7 @@ class Node:
                 num_nodes = int.from_bytes(data[3:4], 'big')
                 pir_string = String()
                 pir_string.data = data[4:4+num_nodes].decode("utf-8")
-                pub_pir_string.publish(pir_string)
+                self.pub_pir_string.publish(pir_string)
 
                 # initiate send back message
                 self.pub_reply.publish(Empty())

@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="nordic_node" type="test_serial.py" name="test_serial" output="screen">
+    </node>
+</launch>

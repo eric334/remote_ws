@@ -23,7 +23,7 @@ class Node:
         rospy.loginfo("Status_node - subscribed to topic : " + control_info_topic)
         self.sub_string_topic = rospy.Subscriber(pir_string_topic, String, self.callback_pir_string)
         rospy.loginfo("Status_node - subscribed to topic : " + pir_string_topic)
-        # its bad, I know
+        # its bad I know, don't holla at me
         rospy.Rate(2).sleep()
         self.log_status()
 
@@ -66,7 +66,6 @@ class Node:
         self.num_nodes = len(string.data)
         # this may not work
         self.pir_data = list(map(int, string.data))
-        print("this was called")
 
 
 if __name__ == '__main__':

@@ -20,7 +20,9 @@
     <arg name="pir_string_topic" default="nordic/pir_string"/>
     <arg name="reply_topic" value="nordic/send_reply"/>
 
-    <arg name="enable" value="False"/>
+    <arg name="enable" value="True"/>
+
+    <!-- For debugging -->
     <arg name="enable_reply_ticks" value="False"/>
   </include>
 
