@@ -36,6 +36,13 @@ class Node:
 
         #print(binascii.hexlify(bytes(val)))
 
+    def uint32_to_two_uint16(self, val):
+        firstval = c_uint16(val >> 16).value
+        return firstval, c_uint16(val ^ (firstval << 16)).value
+
+    def two_uint16_to_uint32(self, firstval, secondval):
+        return val = c_uint32(c_uint32(valtest[0] << 16).value | valtest[1]).value
+
         
 
 if __name__ == '__main__':

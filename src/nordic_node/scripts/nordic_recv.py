@@ -130,15 +130,17 @@ class Node:
             
             # rate.sleep()
 
-        def publish_pose(self, uint32, maptype):
-            # get pose from uint32 pid num
-            pose = PoseStamped()
-            pose.header.frame_id = maptype
-            array = uint32.astype(np.uint16)
-            pose.pose.position.x = array[0]
-            pose.pose.position.y = array[1]
-            
-            self.pub_pose.publish(pose)
+    def publish_pose(self, uint32, maptype):
+        # get pose from uint32 pid num
+        pose = PoseStamped()
+        pose.header.frame_id = maptype
+        pose.pose.position.x, pose.pose.position.y = uint32_to_two_uint16(uint32)
+ 
+        self.pub_pose.publish(pose)
+
+    def uint32_to_two_uint16(self, val):
+    firstval = c_uint16(val >> 16).value
+    return firstval, c_uint16(val ^ (firstval << 16)).value
 
 
 if __name__ == '__main__':
