@@ -7,6 +7,7 @@ from serial import Serial, serialutil
 from io import BytesIO
 import struct
 import binascii
+import direct_client as direct_client_
 
 class Node:
 
@@ -14,9 +15,15 @@ class Node:
         twist_topic = rospy.get_param("~twist_topic")
         empty_topic = rospy.get_param("~empty_topic")
         reply_topic = rospy.get_param("~reply_topic")
+        
         control_info_topic = rospy.get_param("~control_info_topic")
 
+        self.direct_client = rospy.get_param("~direct_client")
         self.enable = rospy.get_param("~enable")
+        if self.direct_client:
+            self.enable = False
+            self.direct_client = direct_client_.Client()
+            
         rospy.loginfo("Nordic_send - serial enabled : " + str(self.enable))
 
         self.twist = Twist()
@@ -49,6 +56,9 @@ class Node:
     def run(self):
         rospy.spin()
 
+        if self.direct_client:
+            self.direct_client.close_socket()
+
     def callback_reply(self, empty):
         rospy.loginfo("Nordic_send - sending reply")
 
@@ -62,8 +72,7 @@ class Node:
 
         self.pub_control.publish(control_twist)
         
-        if self.enable:
-            self.write_serial(control_twist)
+        self.write_buffer(control_twist)
 
 
     def callback_twist(self, data):
@@ -72,7 +81,7 @@ class Node:
     def callback_empty(self,empty):
         self.send_deploy = True
 
-    def write_serial(self, message):
+    def write_buffer(self, message):
         buffer = BytesIO()
         message.serialize(buffer)
 
@@ -82,10 +91,12 @@ class Node:
 
         # getbuffer on python 3, getvalue on python 2
 
-        self.send_as_chunks(buffer.getbuffer())
+        if self.enable:
+            self.send_as_chunks(buffer.getbuffer())
+        if self.direct_client:
+            self.direct_client.send_data(buffer.getbuffer())
 
     def send_as_chunks(self, data):
-        return
 
         size = len(data)
         

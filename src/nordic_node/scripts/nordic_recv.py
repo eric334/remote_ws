@@ -14,11 +14,17 @@ import sys
 import numpy as np
 from ctypes import *
 import math
+import direct_client as direct_client_
 
 # recieve data messages from nordic, get message type and publish
 class Node:
     def __init__(self):
+        self.direct_client = rospy.get_param("~direct_client")
         self.enable = rospy.get_param("~enable")
+        if self.direct_client:
+            self.enable = False
+            self.direct_client = direct_client_.Client()
+
         self.enable_reply_ticks = rospy.get_param("~enable_reply_ticks")
         rospy.loginfo("Nordic_recv - serial enabled : " + str(self.enable))
         rospy.loginfo("Nordic_recv - reply ticks enabled : " + str(self.enable_reply_ticks))
@@ -57,8 +63,25 @@ class Node:
         
         self.pub_pose = rospy.Publisher(pose_topic, PoseStamped, queue_size = 1)
         rospy.loginfo("Nordic_recv - published topic : " + pose_topic)
+            
 
     def run(self):
+        if self.direct_client:
+            rate = rospy.Rate(2)
+            while not rospy.is_shutdown():
+                message = self.direct_client.recv_data()
+                if message is None:
+                    rate.sleep()
+
+                compressedImage = self.deserialize_image(message)
+
+                self.publish_appropriate(compressedImage)   
+                self.pub_reply.publish(Empty())
+            
+            self.direct_client.close_socket()
+
+            return
+
         # do nothing if disabled but stay alive
         if not self.enable:
             if self.enable_reply_ticks:
@@ -109,28 +132,11 @@ class Node:
 
                 rospy.loginfo("Message finish, length: " + str(len(message)))
 
-                compressedImage = CompressedImage()
+                compressedImage = self.deserialize_image(message)
 
-                try:
-                    buffer = BytesIO(message)
-                    compressedImage.deserialize(buffer.getvalue())
-                except:
-                    rospy.logerr("Deserialization of message failed, traceback: \n" + traceback.format_exc())
+                self.publish_appropriate(compressedImage)
 
                 #print(compressedImage)
-
-                if compressedImage.header.frame_id == "cam":
-                    self.pub_camera.publish(compressedImage)
-                elif compressedImage.header.frame_id == "tile":
-                    # get pose data
-                    self.publish_pose(compressedImage.header.seq, "tile")
-                    self.pub_tilemap.publish(compressedImage)
-                elif compressedImage.header.frame_id == "full":
-                    # get pose data
-                    self.publish_pose(compressedImage.header.seq, "full")
-                    self.pub_fullmap.publish(compressedImage)
-                else:
-                    rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
 
                 # get node and pir string from end of end packet
                 num_nodes = int.from_bytes(data[3:4], 'big')
@@ -148,6 +154,29 @@ class Node:
                 message += data
             
             # rate.sleep()
+
+    def publish_appropriate(self, compressedImage):
+        if compressedImage.header.frame_id == "cam":
+            self.pub_camera.publish(compressedImage)
+        elif compressedImage.header.frame_id == "tile":
+            # get pose data
+            self.publish_pose(compressedImage.header.seq, "tile")
+            self.pub_tilemap.publish(compressedImage)
+        elif compressedImage.header.frame_id == "full":
+            # get pose data
+            self.publish_pose(compressedImage.header.seq, "full")
+            self.pub_fullmap.publish(compressedImage)
+        else:
+            rospy.logerr("Error: unrecognized frame id found: "+ compressedImage.header.frame_id)
+
+    def deserialize_image(self, message):
+        compressedImage = CompressedImage()
+        try:
+            buffer = BytesIO(message)
+            compressedImage.deserialize(buffer.getvalue())
+        except:
+            rospy.logerr("Deserialization of message failed, traceback: \n" + traceback.format_exc())
+        return compressedImage
 
     def publish_pose(self, uint32, maptype):
         # get pose from uint32 pid num

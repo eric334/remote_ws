@@ -19,6 +19,8 @@
 
     <arg name="reply_topic" default="send_reply"/>
 
+    <arg name="direct_client" default="True"/>
+
     <node pkg="nordic_node" type="nordic_send.py" name="nordic_send" output="screen">
         <param name="~dev" value="$(arg dev)"/>
         <param name="~baud" value="$(arg baud)"/>
@@ -27,6 +29,7 @@
         <param name="~reply_topic" value="$(arg reply_topic)"/>
         <param name="~control_info_topic" value = "$(arg control_info_topic)"/>
         <param name="~enable" value="$(arg enable)"/>
+        <param name="~direct_client" value="$(arg direct_client)"/>
     </node>
 
     <node pkg="nordic_node" type="nordic_recv.py" name="nordic_recv" output="screen">
@@ -40,6 +43,7 @@
         <param name="~pir_string_topic" value = "$(arg pir_string_topic)"/>
         <param name="~enable" value="$(arg enable)"/>
         <param name="~enable_reply_ticks" value="$(arg enable_reply_ticks)"/>
+        <param name="~direct_client" value="$(arg direct_client)"/>
     </node>
 
 </launch>
