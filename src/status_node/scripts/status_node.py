@@ -23,9 +23,6 @@ class Node:
         rospy.loginfo("Status_node - subscribed to topic : " + control_info_topic)
         self.sub_string_topic = rospy.Subscriber(pir_string_topic, String, self.callback_pir_string)
         rospy.loginfo("Status_node - subscribed to topic : " + pir_string_topic)
-        # its bad I know, don't holla at me
-        rospy.Rate(2).sleep()
-        self.log_status()
 
     def run(self):
         rospy.spin()

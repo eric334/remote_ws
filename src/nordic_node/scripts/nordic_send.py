@@ -6,6 +6,7 @@ from std_msgs.msg import Empty
 from serial import Serial, serialutil
 from io import BytesIO
 import struct
+import binascii
 
 class Node:
 
@@ -49,6 +50,8 @@ class Node:
         rospy.spin()
 
     def callback_reply(self, empty):
+        rospy.loginfo("Nordic_send - sending reply")
+
         control_twist = TwistStamped()
         control_twist.twist = self.twist
         control_twist.header.frame_id = "con"
@@ -78,9 +81,12 @@ class Node:
         #rospy.loginfo("numpy size: " + str(sys.getsizeof(compressedImage.data)))
 
         # getbuffer on python 3, getvalue on python 2
+
         self.send_as_chunks(buffer.getbuffer())
 
     def send_as_chunks(self, data):
+        return
+
         size = len(data)
         
         #print("Size: " + str(size))
@@ -101,7 +107,7 @@ class Node:
             # this is required, for some stupid reason
             self.serial = Serial(self.dev, timeout=1, baudrate=self.baud)
             #print(str(len(chunk)))
-            #print (binascii.hexlify(chunk))
+            print (binascii.hexlify(chunk))
 
 if __name__ == '__main__':
     rospy.init_node('nordic_send', anonymous=True)

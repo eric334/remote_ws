@@ -229,19 +229,25 @@ class ImageTools(object):
         
         new_height = int((image.shape[1] / new_width) * image.shape[0])
 
-        return cv2.resize(image, (new_height, new_width))
+        return cv2.resize(image, (new_width, new_height))
 
 
     def display_image(self, image):
         """
         Use cv2 to show an image.
         """
+        if not image:
+            return
+
         cv2_img = self.convert_to_cv2(image)
         cv2_img = self.resize_image(cv2_img, self.display_width)
 
+        if cv2_image is None or cv2_img.shape[0] == 0:
+            return
+
         cv2.imshow(self.window_name, cv2_img)
 
-        cv2.waitKey(0)
+        k=cv2.waitKey(10)
 
     def close_window(self):
         cv2.destroyWindow(self.window_name)

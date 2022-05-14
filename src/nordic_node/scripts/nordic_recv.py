@@ -12,6 +12,8 @@ from rospy.msg import AnyMsg
 from io import BytesIO
 import sys
 import numpy as np
+from ctypes import *
+import math
 
 # recieve data messages from nordic, get message type and publish
 class Node:
@@ -73,23 +75,39 @@ class Node:
         message = b''
         last_packet = 0
 
+        rospy.sleep(1)
+
+        rospy.loginfo("READY TO RECIEVE")
+
+        num_packets = 0
+
         while not rospy.is_shutdown():
             bytesToRead = self.serial.inWaiting()
             data = self.serial.read(bytesToRead)
 
             data = data[:64]
-            
+
             if data[0:5] == b'start':
-                print(binascii.hexlify(data))
+                rospy.loginfo("new message start")
                 print(type(data))
                 print("last_packet bytes: " + str(binascii.hexlify(data[5:6])))
                 last_packet = int.from_bytes(data[5:6], 'big')
                 print ("last_packet: " + str(last_packet))
                 message = b''
+                #print(binascii.hexlify(data))
+                num_packets = 1
             elif data[0:3] == b'end':
+                num_packets += 1
                 
+                #print(binascii.hexlify(data))
+
                 message = message[:len(message) - 64 + last_packet]
-                #print("Entire message: \n " + str(binascii.hexlify(message)))
+
+                #rospy.loginfo((binascii.hexlify(message)))
+                
+                rospy.loginfo("Num message packets: " + str(num_packets))
+
+                rospy.loginfo("Message finish, length: " + str(len(message)))
 
                 compressedImage = CompressedImage()
 
@@ -124,8 +142,9 @@ class Node:
                 self.pub_reply.publish(Empty())
 
             elif data != b'':
+                num_packets += 1
                 #print(len(data))
-                #print(binascii.hexlify(data))
+                print(binascii.hexlify(data))
                 message += data
             
             # rate.sleep()
@@ -139,8 +158,11 @@ class Node:
         self.pub_pose.publish(pose)
 
     def uint32_to_two_uint16(self, val):
-    firstval = c_uint16(val >> 16).value
-    return firstval, c_uint16(val ^ (firstval << 16)).value
+        firstval = c_uint16(val >> 16).value
+        return firstval, c_uint16(val ^ (firstval << 16)).value
+
+    def two_uint16_to_uint32(self, firstval, secondval):
+        return c_uint32(c_uint32(valtest[0] << 16).value | valtest[1]).value
 
 
 if __name__ == '__main__':
