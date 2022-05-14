@@ -39,7 +39,19 @@ class Client():
 
     def recv_data(self):
         try:
-            return self.server_socket.recv(chunk_size)
+            size = struct.unpack(">i",self.server_socket.recv(4))[0]
+        
+            message = b''
+            remaining_size = size
+            while len(message) < size:
+                recv_size = chunk_size
+                if remaining_size < chunk_size:
+                    recv_size = remaining_size
+                data = self.server_socket.recv(chunk_size)
+                message += data
+
+            message = message[:size]
+            return message
         except Exception:
             print(traceback.format_exc())
             print ("Failed to recieve data.")

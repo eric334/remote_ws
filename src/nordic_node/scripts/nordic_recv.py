@@ -69,7 +69,7 @@ class Node:
         if self.direct_client:
             rospy.loginfo("Nordic_recv - direct client")
 
-            rate = rospy.Rate(1)
+            rate = rospy.Rate(3)
             while not rospy.is_shutdown():
                 rate.sleep() 
 
@@ -84,13 +84,13 @@ class Node:
 
                 print("len: " + str(len(message)))
 
-                print(binascii.hexlify(message))
+                #print(binascii.hexlify(message))
 
                 compressedImage = self.deserialize_image(message)
 
-                self.publish_appropriate(compressedImage)
+                #print(compressedImage)
 
-                return       
+                self.publish_appropriate(compressedImage)   
             
             self.direct_client.close_socket()
 
@@ -164,7 +164,7 @@ class Node:
             elif data != b'':
                 num_packets += 1
                 #print(len(data))
-                print(binascii.hexlify(data))
+                #print(binascii.hexlify(data))
                 message += data
             
             # rate.sleep()

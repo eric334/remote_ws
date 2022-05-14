@@ -224,6 +224,8 @@ class ImageTools(object):
 
 
     def resize_image(self, image, new_width):
+        print(image.shape)
+
         if new_width is None:
             return image
         
@@ -242,7 +244,7 @@ class ImageTools(object):
         cv2_img = self.convert_to_cv2(image)
         cv2_img = self.resize_image(cv2_img, self.display_width)
 
-        if cv2_image is None or cv2_img.shape[0] == 0:
+        if cv2_img is None or cv2_img.shape[0] == 0:
             return
 
         cv2.imshow(self.window_name, cv2_img)
