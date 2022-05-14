@@ -22,7 +22,7 @@ class Node:
         self.enable = rospy.get_param("~enable")
         if self.direct_client:
             self.enable = False
-            self.direct_client = direct_client_.Client()
+            self.direct_client = direct_client_.Client(6001)
             
         rospy.loginfo("Nordic_send - serial enabled : " + str(self.enable))
 
@@ -72,6 +72,8 @@ class Node:
 
         self.pub_control.publish(control_twist)
         
+        rospy.loginfo("Nordic_send - writing buffer")
+
         self.write_buffer(control_twist)
 
 
@@ -94,6 +96,8 @@ class Node:
         if self.enable:
             self.send_as_chunks(buffer.getbuffer())
         if self.direct_client:
+            print(str(len(buffer.getbuffer())))
+            print(binascii.hexlify(buffer.getbuffer()))
             self.direct_client.send_data(buffer.getbuffer())
 
     def send_as_chunks(self, data):

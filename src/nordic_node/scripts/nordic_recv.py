@@ -23,7 +23,7 @@ class Node:
         self.enable = rospy.get_param("~enable")
         if self.direct_client:
             self.enable = False
-            self.direct_client = direct_client_.Client()
+            self.direct_client = direct_client_.Client(6000)
 
         self.enable_reply_ticks = rospy.get_param("~enable_reply_ticks")
         rospy.loginfo("Nordic_recv - serial enabled : " + str(self.enable))
@@ -67,16 +67,30 @@ class Node:
 
     def run(self):
         if self.direct_client:
-            rate = rospy.Rate(2)
+            rospy.loginfo("Nordic_recv - direct client")
+
+            rate = rospy.Rate(1)
             while not rospy.is_shutdown():
-                message = self.direct_client.recv_data()
-                if message is None:
-                    rate.sleep()
+                rate.sleep() 
+
+                self.pub_reply.publish(Empty())
+
+                rospy.loginfo("Nordic_recv - waiting for message")
+                message = None
+                while not rospy.is_shutdown() and message is None:
+                    message = self.direct_client.recv_data()
+                    if message is None:
+                        rospy.sleep(1)
+
+                print("len: " + str(len(message)))
+
+                print(binascii.hexlify(message))
 
                 compressedImage = self.deserialize_image(message)
 
-                self.publish_appropriate(compressedImage)   
-                self.pub_reply.publish(Empty())
+                self.publish_appropriate(compressedImage)
+
+                return       
             
             self.direct_client.close_socket()
 
