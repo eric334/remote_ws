@@ -11,6 +11,7 @@ class Node:
     def __init__(self):
         control_info_topic = rospy.get_param("~control_info_topic")
         pir_string_topic = rospy.get_param("~pir_string_topic")
+        reply_topic = rospy.get_param("~reply_topic")
 
         self.num_nodes = 0
         self.last_send_time = None
@@ -19,6 +20,8 @@ class Node:
         self.linear, self.angular, self.deploy_node = 0, 0, 0
         self.round_trip_time = ""
 
+        self.sub_control_info = rospy.Subscriber(reply_topic, Empty, self.callback_reply)
+        rospy.loginfo("Status_node - subscribed to topic : " + reply_topic)
         self.sub_control_info = rospy.Subscriber(control_info_topic, TwistStamped, self.callback_stamped)
         rospy.loginfo("Status_node - subscribed to topic : " + control_info_topic)
         self.sub_string_topic = rospy.Subscriber(pir_string_topic, String, self.callback_pir_string)
@@ -46,6 +49,9 @@ class Node:
         string += f"\n"
 
         rospy.loginfo(string)
+
+    def callback_reply(self, empty):
+        self.updates_received += 1
 
     def callback_stamped(self, control_data):
         current_time = rospy.get_time()

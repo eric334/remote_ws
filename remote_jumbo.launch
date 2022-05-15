@@ -57,5 +57,6 @@
   <include file="src/status_node/launch/status.launch">
     <arg name="control_info_topic" default = "nordic/control_info"/>
     <arg name="pir_string_topic" default = "nordic/pir_string"/>
+    <arg name="reply_topic" value="nordic/send_reply"/>
   </include>
 </launch>

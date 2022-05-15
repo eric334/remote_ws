@@ -38,9 +38,6 @@ class Node:
 
         dev = rospy.get_param("~dev", "/dev/ttyACM0")
         baud = int(rospy.get_param("~baud", "115200"))
-
-        self.last_send_time = None
-        self.total_updates = 0
         
         if self.enable:
             rospy.loginfo("Nordic_recv - opening serial : " + dev)
@@ -69,7 +66,7 @@ class Node:
         if self.direct_client:
             rospy.loginfo("Nordic_recv - direct client")
 
-            rate = rospy.Rate(.5)
+            rate = rospy.Rate(2)
             while not rospy.is_shutdown():
                 rate.sleep() 
 

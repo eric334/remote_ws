@@ -1,9 +1,11 @@
 <launch>
     <arg name="control_info_topic" default = "control_info"/>
     <arg name="pir_string_topic" default = "pir_string"/>
+    <arg name="reply_topic" default = "send_reply"/>
 
     <node pkg="status_node" type="status_node.py" name="status_node" output="screen">
         <param name = "~control_info_topic" value = "$(arg control_info_topic)"/>
         <param name = "~pir_string_topic" value = "$(arg pir_string_topic)"/>
+        <param name = "~reply_topic" value = "$(arg reply_topic)"/>
     </node>
 </launch>

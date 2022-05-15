@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<launch>
-  <!-- Test launch file -->
-  <include file="src/nordic_node/launch/test_serial.launch">
-  </include>
-</launch>

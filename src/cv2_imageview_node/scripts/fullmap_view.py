@@ -9,6 +9,8 @@ from rospy.msg import AnyMsg
 from io import BytesIO
 from image_tools import ImageTools
 import sys
+import copy as copy_module
+import cv2
 
 class Node:
     def __init__(self):
@@ -22,7 +24,7 @@ class Node:
         self.ugv_position = Pose()
         self.nodepir_positions = []
 
-        self.latest_map = None
+        self.latest_map_cv2 = None
 
         self.pir_array = []
 
@@ -33,21 +35,25 @@ class Node:
         rospy.loginfo("Fullmap_view - subscribed topic : " + pose_topic)
 
     def callback_map(self, CompressedImage):
-        self.latest_map = CompressedImage
-        update_display()
+        self.latest_map_cv2 = self.image_view.convert_to_cv2(CompressedImage)
+        self.update_display()
 
     def update_display(self):
-        if self.latest_map is None:
+        if self.latest_map_cv2 is None:
             return
 
-        image_copy = CompressedImage(self.latest_map)
+        image_modded = self.latest_map_cv2.copy() 
 
-        image_copy = self.draw_square(image_copy, (self.ugv_position.position.x, self.ugv_position.position.y), 6, (255, 255, 0))
-        
-        for position, activated in zip(nodepir_positions, pir_array):
-            image_copy = self.draw_square(image_copy, (position.position.x, position.position.y), 6, ((255, 0, 0) if activated else (150, 0, 0)))
+        # BGR
 
-        self.image_view.display_image(CompressedImage)
+        #cv2.circle(image, center_coordinates, radius, color, thickness)
+
+        image_modded = cv2.circle(image_modded, (int(self.ugv_position.position.x), int(self.ugv_position.position.y)), 15, (255, 0, 0), -1)
+
+        for position, activated in zip(self.nodepir_positions, self.pir_array):
+            image_modded = cv2.circle(image_modded, (int(position.position.x), int(position.position.y)), 15, ((0, 0, 255) if activated else (0, 0, 150)), -1)
+
+        self.image_view.display_image(image_modded)
 
     def callback_pose(self, poseStamped):
         if poseStamped.header.frame_id == "tile":
@@ -68,18 +74,6 @@ class Node:
                 self.pir_array.append(False)
 
         self.update_display()
-
-    def draw_point(compressedImage, position, color):
-        compressedImage.data[position[0]][position[1]][:] = color
-        return compressedImage
-
-    def draw_square(compressedImage, position, radius, color):
-        shape = compressedImage.data.shape
-        for i in range(pos[0] - radius, pos[0] + radius):
-           for j in range(position[1] - radius, position[1] + radius): 
-               if position[1] >= 0 and position[0] < shape[0] and position[1] >= 0 and position[1] < shape[1]:
-                   compressedImage = draw_point(compressedImage, (i,j), color)
-        return compressedImage
 
     def run(self):
         rospy.spin()

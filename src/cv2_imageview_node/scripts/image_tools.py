@@ -239,7 +239,7 @@ class ImageTools(object):
         """
         Use cv2 to show an image.
         """
-        if not image:
+        if image is None:
             return
 
         cv2_img = self.convert_to_cv2(image)
