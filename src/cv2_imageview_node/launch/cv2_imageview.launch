@@ -1,5 +1,5 @@
 <launch>
-    <arg name="tilemap_display_width" default="200"/>
+    <arg name="tilemap_display_width" default="400"/>
     <arg name="fullmap_display_width" default="900"/>
     <arg name="camera_display_width" default="400"/>
 

@@ -57,7 +57,7 @@ class Node:
             # deployment of new node
             self.nodepir_positions.append(poseStamped.pose)
 
-        update_display()
+        self.update_display()
 
     def callback_pir_string(self, string):
         self.pir_array = []
@@ -67,7 +67,7 @@ class Node:
             else:
                 self.pir_array.append(False)
 
-        update_display()
+        self.update_display()
 
     def draw_point(compressedImage, position, color):
         compressedImage.data[position[0]][position[1]][:] = color

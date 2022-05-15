@@ -224,13 +224,14 @@ class ImageTools(object):
 
 
     def resize_image(self, image, new_width):
-        print(image.shape)
+        #print(image.shape)
 
         if new_width is None:
             return image
         
-        new_height = int((image.shape[1] / new_width) * image.shape[0])
-
+        new_height = int((new_width / image.shape[1]) * image.shape[0])
+        #print(new_width)
+        #print(new_height)
         return cv2.resize(image, (new_width, new_height))
 
 

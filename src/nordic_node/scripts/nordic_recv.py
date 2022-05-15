@@ -69,7 +69,7 @@ class Node:
         if self.direct_client:
             rospy.loginfo("Nordic_recv - direct client")
 
-            rate = rospy.Rate(3)
+            rate = rospy.Rate(.5)
             while not rospy.is_shutdown():
                 rate.sleep() 
 
@@ -196,7 +196,7 @@ class Node:
         # get pose from uint32 pid num
         pose = PoseStamped()
         pose.header.frame_id = maptype
-        pose.pose.position.x, pose.pose.position.y = uint32_to_two_uint16(uint32)
+        pose.pose.position.x, pose.pose.position.y = self.uint32_to_two_uint16(uint32)
  
         self.pub_pose.publish(pose)
 
