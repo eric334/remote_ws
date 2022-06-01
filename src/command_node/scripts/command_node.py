@@ -30,6 +30,11 @@ class Node:
         twist.linear.x = data.axes[1]
         twist.angular.z = data.axes[0]
 
+        if (data.buttons[1] == 1):
+            twist.linear.z = 1
+        if (data.buttons[2] == 1):
+            twist.linear.z = -1
+
         self.pub_twist.publish(twist)
 
         # handle button press

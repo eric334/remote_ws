@@ -96,7 +96,7 @@ class Node:
         if self.enable:
             self.send_as_chunks(buffer.getbuffer())
         if self.direct_client:
-            print(str(len(buffer.getbuffer())))
+            #print(str(len(buffer.getbuffer())))
             #print(binascii.hexlify(buffer.getbuffer()))
             self.direct_client.send_data(buffer.getbuffer())
 

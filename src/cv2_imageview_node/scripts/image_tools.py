@@ -23,6 +23,8 @@ class ImageTools(object):
         self._cv_bridge = CvBridge()
         self.window_name = "Window Name"
         self.display_width = None
+        self.imcounter = 0
+        self.save_name = None
 
     def convert_ros_msg_to_cv2(self, ros_data, image_encoding='bgr8'):
         """
@@ -242,13 +244,20 @@ class ImageTools(object):
         if image is None:
             return
 
-        cv2_img = self.convert_to_cv2(image)
+        cv2_img = self.convert_to_cv2(image)       
+
+        if self.save_name:
+            cv2.imwrite("./" + self.save_name + str(self.imcounter) + ".jpg", cv2_img)
+            self.imcounter += 1
+
         cv2_img = self.resize_image(cv2_img, self.display_width)
 
         if cv2_img is None or cv2_img.shape[0] == 0:
             return
 
         cv2.imshow(self.window_name, cv2_img)
+
+        
 
         k=cv2.waitKey(10)
 

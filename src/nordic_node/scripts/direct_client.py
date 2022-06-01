@@ -31,7 +31,7 @@ class Client():
             self.server_socket.send(size_bytes)
             for chunk in chunks:
                 self.server_socket.send(chunk)
-                print(chunk)
+                #print(chunk)
         except Exception:
             print(traceback.format_exc())
             print ("Failed to send data.")

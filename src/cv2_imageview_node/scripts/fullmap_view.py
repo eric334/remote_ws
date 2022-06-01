@@ -17,6 +17,7 @@ class Node:
         self.image_view = ImageTools()
         self.image_view.window_name = rospy.get_param("~window_name")
         self.image_view.display_width = int(rospy.get_param("~display_width"))
+        self.image_view.save_name = "fullmap"
 
         fullmap_topic = rospy.get_param("~fullmap_topic")
         pose_topic = rospy.get_param("~pose_topic")

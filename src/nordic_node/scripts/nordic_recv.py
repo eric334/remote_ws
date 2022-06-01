@@ -66,7 +66,7 @@ class Node:
         if self.direct_client:
             rospy.loginfo("Nordic_recv - direct client")
 
-            rate = rospy.Rate(2)
+            rate = rospy.Rate(3)
             while not rospy.is_shutdown():
                 rate.sleep() 
 
@@ -79,7 +79,7 @@ class Node:
                     if message is None:
                         rospy.sleep(1)
 
-                print("len: " + str(len(message)))
+                #print("len: " + str(len(message)))
 
                 #print(binascii.hexlify(message))
 
