@@ -38,19 +38,11 @@ class Node:
         string += f"    Angular : {self.angular}\n"
         string += f"    Deploy Node : {self.deploy_node}\n"
         string += f"\n"
-
-        self.updates_received = 69
-
         string += f"Updates Received : {self.updates_received}\n"
         string += f"Round Trip Time : {str(self.round_trip_time)}\n"
-
-        self.num_nodes = 2
-
         string += f"Nodes Online : {str(self.num_nodes)}\n"
         string += f"\n"
         string += f"Passive Infrared Sensors :\n"
-
-        self.pir_data = [False, True]
 
         for i, item in enumerate(self.pir_data):
             item = "Triggered" if item else "Not Triggered"

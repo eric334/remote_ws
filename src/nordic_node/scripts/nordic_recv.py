@@ -66,7 +66,7 @@ class Node:
         if self.direct_client:
             rospy.loginfo("Nordic_recv - direct client")
 
-            rate = rospy.Rate(3)
+            rate = rospy.Rate(2.3)
             while not rospy.is_shutdown():
                 rate.sleep() 
 
@@ -115,11 +115,15 @@ class Node:
 
         num_packets = 0
 
+        data_len = 63
+
+        last_packet_data = None
+
         while not rospy.is_shutdown():
             bytesToRead = self.serial.inWaiting()
             data = self.serial.read(bytesToRead)
 
-            data = data[:64]
+            data = data[:data_len]
 
             if data[0:5] == b'start':
                 rospy.loginfo("new message start")
@@ -128,14 +132,14 @@ class Node:
                 last_packet = int.from_bytes(data[5:6], 'big')
                 print ("last_packet: " + str(last_packet))
                 message = b''
-                #print(binascii.hexlify(data))
+                print(binascii.hexlify(data))
                 num_packets = 1
             elif data[0:3] == b'end':
                 num_packets += 1
                 
-                #print(binascii.hexlify(data))
+                print(binascii.hexlify(data))
 
-                message = message[:len(message) - 64 + last_packet]
+                message = message[:len(message) - data_len + last_packet]
 
                 #rospy.loginfo((binascii.hexlify(message)))
                 
@@ -145,9 +149,9 @@ class Node:
 
                 compressedImage = self.deserialize_image(message)
 
-                self.publish_appropriate(compressedImage)
+                print(compressedImage)
 
-                #print(compressedImage)
+                self.publish_appropriate(compressedImage)
 
                 # get node and pir string from end of end packet
                 num_nodes = int.from_bytes(data[3:4], 'big')
@@ -159,9 +163,13 @@ class Node:
                 self.pub_reply.publish(Empty())
 
             elif data != b'':
+                if last_packet_data != None and data == last_packet_data:
+                    continue
+                last_packet_data = data
+
                 num_packets += 1
                 #print(len(data))
-                #print(binascii.hexlify(data))
+                print(binascii.hexlify(data))
                 message += data
             
             # rate.sleep()
