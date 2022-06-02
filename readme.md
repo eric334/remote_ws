@@ -19,5 +19,5 @@ If AION Gold Image was installed, UGV will host wifi direct network SSID: AIONio
 - Connect to wifi direct
 - <code>ssh nvidia@10.0.1.128</code> in terminal (ip is def gateway) p: nvidia
 
-You may also wish to install nomachine for remote desktop view. Jetson TX2 is ARM.  
-For normal work it is recommended to power the TX2 via wall barrel plug adapter and connect an HDMI monitor.
+For remote desktop install nomachine, Jetson TX2 is ARM.  
+For normal work power TX2 via wall barrel plug adapter and connect an HDMI monitor.
