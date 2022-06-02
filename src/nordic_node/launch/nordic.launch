@@ -7,8 +7,7 @@
 
     <arg name="camera_topic" default="recv_image_camera"/>
     <arg name="tilemap_topic" default="recv_image_tilemap"/>
-    <arg name="fullmap_topic" default="recv_image_fullmap"/>
-    
+    <arg name="fullmap_topic" default="recv_image_fullmap"/>z
 
     <arg name="pose_topic" default="recv_pose"/>
 
@@ -22,8 +21,6 @@
 
     <arg name="direct_client" default="True"/>
 
-    <arg name="mark_topic" default="set_mark"/>
-
     <node pkg="nordic_node" type="nordic_send.py" name="nordic_send" output="screen">
         <param name="~dev" value="$(arg dev)"/>
         <param name="~baud" value="$(arg baud)"/>
@@ -33,7 +30,6 @@
         <param name="~control_info_topic" value = "$(arg control_info_topic)"/>
         <param name="~enable" value="$(arg enable)"/>
         <param name="~direct_client" value="$(arg direct_client)"/>
-        <param name="~mark_topic" value="$(arg mark_topic)"/>
     </node>
 
     <node pkg="nordic_node" type="nordic_recv.py" name="nordic_recv" output="screen">

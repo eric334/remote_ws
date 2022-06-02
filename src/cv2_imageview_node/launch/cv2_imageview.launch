@@ -5,8 +5,7 @@
 
     <arg name="camera_topic" default="recv_image_camera"/>
     <arg name="tilemap_topic" default="recv_image_tilemap"/>
-    <arg name="fullmap_topic" default="recv_image_fullmap"/>
-    <arg name="mark_topic" default="set_mark"/>
+    <arg name="fullmap_topic" default="recv_image_fullmap"/>z
 
     <arg name="pose_topic" default="pose_topic"/>
 
@@ -31,7 +30,6 @@
         <param name="~window_name" value="$(arg fullmap_window_name)"/>
         <param name="~fullmap_topic" value="$(arg fullmap_topic)"/>
         <param name="~pose_topic" value="$(arg pose_topic)"/>
-        <param name="~mark_topic" value="$(arg mark_topic)"/>
     </node>
 
 </launch>

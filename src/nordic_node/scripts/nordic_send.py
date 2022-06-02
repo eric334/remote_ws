@@ -15,7 +15,6 @@ class Node:
         twist_topic = rospy.get_param("~twist_topic")
         empty_topic = rospy.get_param("~empty_topic")
         reply_topic = rospy.get_param("~reply_topic")
-        mark_topic = rospy.get_param("~mark_topic")
         
         control_info_topic = rospy.get_param("~control_info_topic")
 
@@ -51,9 +50,6 @@ class Node:
         self.sub_reply = rospy.Subscriber(reply_topic, Empty, self.callback_reply)
         rospy.loginfo("Nordic_send - subscribed to topic : " + reply_topic)
         
-        self.pub_mark = rospy.Publisher(mark_topic, Empty, queue_size=1)
-        rospy.loginfo("Nordic_send - published topic : " + mark_topic)
-
         self.pub_control = rospy.Publisher(control_info_topic, TwistStamped, queue_size=1)
         rospy.loginfo("Nordic_send - published topic : " + control_info_topic)
 
@@ -85,9 +81,6 @@ class Node:
         self.twist = data
 
     def callback_empty(self,empty):
-        if self.direct_client:
-            self.pub_mark(Empty())
-
         self.send_deploy = True
 
     def write_buffer(self, message):
