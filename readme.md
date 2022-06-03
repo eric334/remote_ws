@@ -1,7 +1,5 @@
 # Capstone Remote Station ROS Catkin Workspace
 
-Project Paper: See Aerobot_ITC22-compressed.pdf
-
 ## High level setup for Remote Station
 - Install Focal (Ubu 20.04) On Laptop
 - Install ROS Noetic Desktop (Supports Python 3)
